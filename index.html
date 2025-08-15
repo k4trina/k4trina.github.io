@@ -111,19 +111,6 @@
         
         .nav-links {
             display: none;
-            gap: 32px;
-            align-items: center;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--gray-600);
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--gray-800);
         }
         
         .nav-buttons {
@@ -260,10 +247,55 @@
             font-size: 16px;
             font-weight: 500;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Creative data visualization effect */
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60'%3E%3Cpath d='M0,40 Q100,20 200,35 T400,25 L400,60 L0,60 Z' fill='%23805B87' fill-opacity='0.05'/%3E%3C/svg%3E");
+            background-size: cover;
         }
         
         .hero-image-content {
             text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Animated data points */
+        .data-points {
+            position: absolute;
+            top: 20%;
+            left: 15%;
+            right: 15%;
+            bottom: 30%;
+        }
+        
+        .data-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .data-point:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .data-point:nth-child(2) { top: 40%; left: 60%; animation-delay: 0.5s; }
+        .data-point:nth-child(3) { top: 60%; left: 30%; animation-delay: 1s; }
+        .data-point:nth-child(4) { top: 30%; left: 80%; animation-delay: 1.5s; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.2); }
         }
         
         .hero-image-icon {
@@ -287,6 +319,20 @@
             font-weight: 600;
             color: var(--gray-900);
             margin-bottom: 16px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
         }
         
         .section-header p {
@@ -311,14 +357,31 @@
             border-radius: 16px;
             border: 1px solid var(--gray-200);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transition: left 0.4s ease;
+        }
+        
+        .feature-card:hover::before {
+            left: 0;
         }
         
         .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: rgba(128, 91, 135, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            border-color: rgba(128, 91, 135, 0.15);
         }
         
         .feature-icon {
@@ -331,6 +394,26 @@
             justify-content: center;
             margin: 0 auto 20px;
             color: white;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon::after {
+            opacity: 0.3;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.05);
         }
         
         .feature-icon.accent {
@@ -449,10 +532,6 @@
         
         /* Mobile Responsive */
         @media (min-width: 768px) {
-            .nav-links {
-                display: flex;
-            }
-            
             .btn-login {
                 display: block;
             }
@@ -517,12 +596,6 @@
                 <div class="logo-icon">B</div>
                 Bidblox
             </a>
-            <div class="nav-links">
-                <a href="#">Platform</a>
-                <a href="#">Market Data</a>
-                <a href="#">Pricing</a>
-                <a href="#">Resources</a>
-            </div>
             <div class="nav-buttons">
                 <a href="#" class="btn-login">Login</a>
                 <a href="#" class="btn-primary">Get Started</a>
@@ -549,11 +622,17 @@
                     </a>
                 </div>
                 <div class="beta-cta">
-                    <h3>🚀 Join Our Beta Program</h3>
-                    <p>Get exclusive early access to our proprietary market data and advanced bid leveling algorithms</p>
+                    <h3>🔍 AI-Powered RFP Discovery</h3>
+                    <p>Advanced web scraping and AI tools help subcontractors discover relevant bidding opportunities automatically</p>
                 </div>
             </div>
             <div class="hero-image">
+                <div class="data-points">
+                    <div class="data-point"></div>
+                    <div class="data-point"></div>
+                    <div class="data-point"></div>
+                    <div class="data-point"></div>
+                </div>
                 <div class="hero-image-content">
                     <div class="hero-image-icon">📊</div>
                     <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Live Market Dashboard</div>
@@ -620,61 +699,6 @@
                         <div style="font-size: 20px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px;">Interactive Analytics Platform</div>
                         <div style="font-size: 16px; color: var(--gray-500);">Live pricing intelligence • Bid comparison • Market forecasts</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Core Features -->
-    <section class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Streamline Your Bidding Workflow</h2>
-                <p>Generate high-quality responses in less time with AI-powered analysis and automated bid leveling</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 11H1l6-6 6 6"/>
-                            <path d="M9 13H1l6 6 6-6"/>
-                            <line x1="20" x2="20" y1="19" y2="5"/>
-                        </svg>
-                    </div>
-                    <h3>Intelligent Bid Analysis</h3>
-                    <p>AI analyzes historical data, market conditions, and project specifics to recommend optimal pricing strategies that win more projects</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon accent">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
-                            <circle cx="12" cy="5" r="2"/>
-                            <path d="m12 7-1.5 2h3L12 7Z"/>
-                        </svg>
-                    </div>
-                    <h3>Smart Response Generation</h3>
-                    <p>Context-aware AI creates tailored responses to RFPs, helping your firm win more deals with professional, accurate proposals</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 2v4"/>
-                            <path d="M16 2v4"/>
-                            <rect width="18" height="18" x="3" y="4" rx="2"/>
-                            <path d="M3 10h18"/>
-                            <path d="M8 14h.01"/>
-                            <path d="M12 14h.01"/>
-                            <path d="M16 14h.01"/>
-                            <path d="M8 18h.01"/>
-                            <path d="M12 18h.01"/>
-                            <path d="M16 18h.01"/>
-                        </svg>
-                    </div>
-                    <h3>Subcontractor Management</h3>
-                    <p>Build stronger relationships with your subcontractor network and automate follow-up processes with integrated workflows</p>
                 </div>
             </div>
         </div>
