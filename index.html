@@ -111,6 +111,19 @@
         
         .nav-links {
             display: none;
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gray-800);
         }
         
         .nav-buttons {
@@ -532,6 +545,10 @@
         
         /* Mobile Responsive */
         @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+            
             .btn-login {
                 display: block;
             }
@@ -593,9 +610,13 @@
     <nav class="nav">
         <div class="nav-container">
             <a href="#" class="logo">
-                <div class="logo-icon">B</div>
-                Bidblox
+                <img src="assets/img/logo.jpg" alt="Bidblox" style="height: 40px;">
             </a>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+            </div>
             <div class="nav-buttons">
                 <a href="#" class="btn-login">Login</a>
                 <a href="#" class="btn-primary">Get Started</a>
@@ -607,10 +628,10 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <div class="eyebrow">Bloomberg Terminal for Construction</div>
-                <h1>AI-Powered Bid Leveling with Proprietary Market Intelligence</h1>
+                <div class="eyebrow">Integrated Construction Intelligence Platform</div>
+                <h1>AI-Powered Construction Intelligence: Communication, Pricing & Risk Management Unified</h1>
                 <p class="subtitle">
-                    Transform your bidding strategy with real-time construction market data, AI-driven bid analysis, and automated leveling tools. Win 89% more projects with data-driven insights.
+                    Communication really matters where pricing and risk management are central to a project. A single tool that integrates those three needs is a transformational development for the industry.
                 </p>
                 <div class="hero-actions">
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
@@ -709,11 +730,9 @@
         <div class="trust-content">
             <div class="trust-label">Backed by leading investors and trusted by construction firms</div>
             <div class="trust-logos">
-                <div class="trust-logo">Antler</div>
-                <div class="trust-logo">Venture Lab</div>
-                <div class="trust-logo">OCI</div>
-                <div class="trust-logo">Construction Firm</div>
-                <div class="trust-logo">AEC Partner</div>
+                <img src="assets/img/Antler_logo.svg" alt="Antler" style="height: 40px; opacity: 0.6;">
+                <img src="assets/img/venture_lab_crop.png" alt="Venture Lab" style="height: 40px; opacity: 0.6;">
+                <img src="assets/img/OCI-logo-English.webp" alt="OCI" style="height: 40px; opacity: 0.6;">
             </div>
         </div>
     </section>
