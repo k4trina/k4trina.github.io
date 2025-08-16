@@ -612,7 +612,11 @@
             <a href="#" class="logo">
                 <img src="assets/img/logo.jpg" alt="Bidblox" style="height: 40px;">
             </a>
-            
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+            </div>
             <div class="nav-buttons">
                 <a href="#" class="btn-login">Login</a>
                 <a href="#" class="btn-primary">Get Started</a>
@@ -625,9 +629,10 @@
         <div class="hero-container">
             <div class="hero-content">
                 <div class="eyebrow">Integrated Construction Intelligence Platform</div>
-                <h1>AI-Powered Insights for Bids, Pricing & Risk</h1>
+                <h1>AI-Powered Construction Intelligence: Communication, Pricing & Risk Management Unified</h1>
                 <p class="subtitle">
-One platform to streamline pricing, evaluate bids, and manage project risk—keeping teams aligned and informed.                </p>
+                    Communication really matters where pricing and risk management are central to a project. A single tool that integrates those three needs is a transformational development for the industry.
+                </p>
                 <div class="hero-actions">
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
                     <a href="#" class="btn-secondary">
@@ -777,10 +782,64 @@ One platform to streamline pricing, evaluate bids, and manage project risk—kee
                 <h3>Live Market Intelligence Dashboard</h3>
                 <p>Real-time construction market data, pricing analytics, and bid comparison tools</p>
                 <div class="dashboard-preview">
-                    <div class="dashboard-content">
-                        <div class="dashboard-icon">📈</div>
-                        <div style="font-size: 20px; font-weight: 600; color: var(--gray-700); margin-bottom: 8px;">Interactive Analytics Platform</div>
-                        <div style="font-size: 16px; color: var(--gray-500);">Live pricing intelligence • Bid comparison • Market forecasts</div>
+                    <div style="width: 100%; height: 100%; background: white; padding: 32px; border-radius: 12px; position: relative;">
+                        <!-- Market Risk Assessment Header -->
+                        <div style="margin-bottom: 24px;">
+                            <h3 style="margin: 0 0 8px 0; color: #374151; font-size: 24px; font-weight: 600;">Market Risk Assessment</h3>
+                            <p style="margin: 0; color: #6b7280; font-size: 16px;">Commodity intelligence for award timing</p>
+                        </div>
+                        
+                        <!-- Material Price Cards -->
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px;">
+                            <div style="background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center;">
+                                <div style="color: #805B87; font-weight: 600; font-size: 18px; margin-bottom: 4px;">Aluminum</div>
+                                <div style="color: #dc2626; font-size: 16px; font-weight: 500;">+12.51% YoY</div>
+                            </div>
+                            <div style="background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center;">
+                                <div style="color: #805B87; font-weight: 600; font-size: 18px; margin-bottom: 4px;">Steel</div>
+                                <div style="color: #dc2626; font-size: 16px; font-weight: 500;">+23.37% YoY</div>
+                            </div>
+                            <div style="background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: center;">
+                                <div style="color: #805B87; font-weight: 600; font-size: 18px; margin-bottom: 4px;">Glass</div>
+                                <div style="color: #16a34a; font-size: 16px; font-weight: 500;">+4.5% Stable</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Risk Alerts -->
+                        <div style="space-y: 16px;">
+                            <!-- Aluminum Alert -->
+                            <div style="display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; margin-bottom: 16px;">
+                                <div style="background: #dc2626; color: white; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; white-space: nowrap;">URGENT</div>
+                                <div>
+                                    <div style="font-weight: 600; color: #374151; margin-bottom: 4px;">Aluminum Price Surge</div>
+                                    <div style="color: #6b7280; font-size: 14px;">Aluminum up 12.51% YoY. Lock pricing immediately for aluminum-heavy scopes.</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Steel Recommendation -->
+                            <div style="display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; margin-bottom: 16px;">
+                                <div style="background: #d4955a; color: white; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; white-space: nowrap;">RECOMMENDATION</div>
+                                <div>
+                                    <div style="font-weight: 600; color: #374151; margin-bottom: 4px;">Steel Timing Opportunity</div>
+                                    <div style="color: #6b7280; font-size: 14px;">Steel declining 5.33% monthly. Consider delaying steel-heavy awards.</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Warning -->
+                            <div style="display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: #faf5ff; border: 1px solid #d8b4fe; border-radius: 8px;">
+                                <div style="background: #805B87; color: white; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600; white-space: nowrap;">WARNING</div>
+                                <div>
+                                    <div style="font-weight: 600; color: #374151; margin-bottom: 4px;">Wide Price Spread</div>
+                                    <div style="color: #6b7280; font-size: 14px;">81.1% spread suggests scope differences or market uncertainty.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recommended Action -->
+                        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                            <div style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 16px;">Recommended Action</div>
+                            <div style="color: #6b7280; font-size: 14px;">Mixed conditions: Award aluminum immediately, consider delaying steel.</div>
+                        </div>
                     </div>
                 </div>
             </div>
