@@ -103,12 +103,49 @@
             width: 36px;
             height: 36px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             font-size: 18px;
+            position: relative;
+            overflow: visible;
+        }
+        
+        /* Building blocks logo */
+        .logo-blocks {
+            display: grid;
+            grid-template-columns: repeat(2, 8px);
+            grid-template-rows: repeat(2, 8px);
+            gap: 3px;
+            transform: rotate(0deg);
+        }
+        
+        .logo-block {
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover .logo-block {
+            border-radius: 3px;
+        }
+        
+        .logo:hover .logo-block:nth-child(1) {
+            transform: translate(-1px, -1px);
+        }
+        
+        .logo:hover .logo-block:nth-child(2) {
+            transform: translate(1px, -1px);
+        }
+        
+        .logo:hover .logo-block:nth-child(3) {
+            transform: translate(-1px, 1px);
+        }
+        
+        .logo:hover .logo-block:nth-child(4) {
+            transform: translate(1px, 1px);
         }
         
         .nav-buttons {
