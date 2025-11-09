@@ -127,6 +127,17 @@
             border-radius: 2px;
             transition: all 0.3s ease;
         }
+
+        .logo-mark {
+            width: 42px;
+            height: 42px;
+            background: #111111;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         
         .logo:hover .logo-block {
             border-radius: 3px;
@@ -850,18 +861,23 @@
         <div class="nav-container">
             <a href="#" class="logo">
                 <div class="logo-mark">
-                    <div class="logo-blocks">
-                        <div class="logo-block"></div>
-                        <div class="logo-block"></div>
-                        <div class="logo-block"></div>
-                        <div class="logo-block"></div>
-                    </div>
-                </div>
+                            <svg width="26" height="28" viewBox="0 0 26 28" fill="none">
+                                <rect x="2" y="2" width="10" height="10" rx="2" fill="white"/>
+                                <rect x="14" y="2" width="10" height="10" rx="2" fill="white"/>
+                                
+                                <rect x="2" y="14" width="10" height="10" rx="2" fill="white"/>
+                                <rect x="14" y="14" width="10" height="10" rx="2" fill="white"/>
+                                
+                                <rect x="2" y="8" width="10" height="10" rx="2" fill="white"/>
+                                <rect x="14" y="8" width="10" height="10" rx="2" fill="white"/>
+                            </svg>
+                        </div>
+
                 <span>Bidblox</span>
             </a>
             
             <div class="nav-buttons">
-                <a href="#" class="btn-secondary">Sign In</a>
+                <a href="demo.bidblox.ai" class="btn-secondary">Sign In</a>
                 <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
             </div>
         </div>
