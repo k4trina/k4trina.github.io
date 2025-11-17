@@ -422,6 +422,278 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* Integrations Section */
+.integrations {
+    padding: 100px 0;
+    background: #fafafa;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+}
+
+.integrations-showcase {
+    position: relative;
+    min-height: 600px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Central Hub */
+.central-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.hub-icon {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 16px;
+}
+
+.hub-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.hub-logo .logo-mark {
+    width: 56px;
+    height: 56px;
+    background: var(--text-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hub-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(128, 91, 135, 0.2);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.ring-1 {
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+.ring-2 {
+    width: 100px;
+    height: 100px;
+    animation-delay: 1s;
+}
+
+.ring-3 {
+    width: 120px;
+    height: 120px;
+    animation-delay: 2s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+.hub-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Integration Categories */
+.integration-category {
+    position: absolute;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.integration-category:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.category-construction {
+    top: 40px;
+    left: 40px;
+}
+
+.category-bidding {
+    top: 40px;
+    right: 40px;
+}
+
+.category-productivity {
+    bottom: 40px;
+    left: 40px;
+}
+
+.category-cloud {
+    bottom: 40px;
+    right: 40px;
+}
+
+.category-header h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.category-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.integration-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: #fafafa;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.integration-item:hover {
+    background: #f0f0f0;
+}
+
+.item-icon {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.integration-item span {
+    font-size: 13px;
+    color: var(--text-primary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Connection Lines */
+.connection-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .integrations-showcase {
+        min-height: 800px;
+    }
+    
+    .category-construction {
+        top: 20px;
+        left: 20px;
+        right: auto;
+    }
+    
+    .category-bidding {
+        top: 20px;
+        right: 20px;
+        left: auto;
+    }
+    
+    .category-productivity {
+        bottom: 180px;
+        left: 20px;
+        right: auto;
+    }
+    
+    .category-cloud {
+        bottom: 20px;
+        left: 20px;
+        right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .integrations {
+        padding: 60px 0;
+    }
+    
+    .integrations-showcase {
+        min-height: 1000px;
+    }
+    
+    .integration-category {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin-bottom: 20px;
+    }
+    
+    .central-hub {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-bottom: 40px;
+    }
+    
+    .connection-lines {
+        display: none;
+    }
+}
         
         /* Features Section - Simplified */
         .features {
@@ -959,6 +1231,155 @@
             </div>
         </div>
     </section>
+
+
+    <!-- Integrations Section -->
+<section class="integrations" id="integrations">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-eyebrow">Platform Ecosystem</div>
+            <h2>Seamless integrations with your entire tech stack</h2>
+            <p>Export ready-to-edit reports and plug into tools your team already uses.</p>
+        </div>
+
+        <div class="integrations-showcase">
+            <!-- Central Bidblox Hub -->
+            <div class="central-hub">
+                <div class="hub-icon">
+                    <div class="hub-logo">
+                        <div class="logo-mark">
+                            <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+                                <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="hub-rings">
+                        <div class="ring ring-1"></div>
+                        <div class="ring ring-2"></div>
+                        <div class="ring ring-3"></div>
+                    </div>
+                </div>
+                <div class="hub-label">Bidblox</div>
+            </div>
+
+            <!-- Integration Categories -->
+            <div class="integration-category category-construction">
+                <div class="category-header">
+                    <h4>Construction Platforms</h4>
+                </div>
+                <div class="category-icons">
+                    <div class="integration-item">
+                        <div class="item-icon">P</div>
+                        <span>Procore</span>
+                    </div>
+                    <div class="integration-item">
+                        <div class="item-icon">BC</div>
+                        <span>Building Connected</span>
+                    </div>
+                    <div class="integration-item">
+                        <div class="item-icon">A</div>
+                        <span>Autodesk</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-category category-bidding">
+                <div class="category-header">
+                    <h4>Bid Sources</h4>
+                </div>
+                <div class="category-icons">
+                    <div class="integration-item">
+                        <div class="item-icon">B&T</div>
+                        <span>Bids&Tenders</span>
+                    </div>
+                    <div class="integration-item">
+                        <div class="item-icon">M</div>
+                        <span>Merx</span>
+                    </div>
+                    <div class="integration-item">
+                        <div class="item-icon">BI</div>
+                        <span>Biddingo</span>
+                    </div>
+                    <div class="integration-item">
+                        <div class="item-icon">AP</div>
+                        <span>Alberta Purchasing</span>
+                    </div>
+                    <div class="integration-item">
+                        <div class="item-icon">OG</div>
+                        <span>OpenGov</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-category category-productivity">
+                <div class="category-header">
+                    <h4>Productivity Tools</h4>
+                </div>
+                <div class="category-icons">
+                    <div class="integration-item">
+                        <div class="item-icon">M</div>
+                        <span>Microsoft Outlook</span>
+                    </div>
+                    <div class="integration-item">
+                        <div class="item-icon">G</div>
+                        <span>Gmail</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integration-category category-cloud">
+                <div class="category-header">
+                    <h4>Cloud Storage</h4>
+                </div>
+                <div class="category-icons">
+                    <div class="integration-item">
+                        <div class="item-icon">GD</div>
+                        <span>Google Drive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connection Lines -->
+            <svg class="connection-lines" viewBox="0 0 1200 800" fill="none">
+                <defs>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgba(128, 91, 135, 0.4);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgba(212, 149, 90, 0.4);stop-opacity:1" />
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Lines connecting to central hub -->
+                <path d="M 600 400 Q 300 200 180 120" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+                <path d="M 600 400 Q 900 200 1020 120" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+                <path d="M 600 400 Q 300 600 120 600" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+                <path d="M 600 400 Q 900 600 1080 600" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+
+                <!-- Animated particles -->
+                <circle cx="400" cy="300" r="2" fill="rgba(128, 91, 135, 0.8)">
+                    <animateMotion dur="4s" repeatCount="indefinite" path="M 400 300 Q 500 350 600 400" />
+                </circle>
+                <circle cx="800" cy="300" r="2" fill="rgba(212, 149, 90, 0.8)">
+                    <animateMotion dur="4s" repeatCount="indefinite" path="M 800 300 Q 700 350 600 400" />
+                </circle>
+                <circle cx="400" cy="500" r="2" fill="rgba(128, 91, 135, 0.8)">
+                    <animateMotion dur="4s" repeatCount="indefinite" path="M 400 500 Q 500 450 600 400" />
+                </circle>
+                <circle cx="800" cy="500" r="2" fill="rgba(212, 149, 90, 0.8)">
+                    <animateMotion dur="4s" repeatCount="indefinite" path="M 800 500 Q 700 450 600 400" />
+                </circle>
+            </svg>
+        </div>
+    </div>
+</section>
 
     <!-- Use Cases Section -->
     <!-- Comment for now
