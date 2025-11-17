@@ -1238,7 +1238,7 @@
     <div class="container">
         <div class="section-header">
             <div class="section-eyebrow">Platform Ecosystem</div>
-            <h2>Seamless integrations with your entire tech stack</h2>
+            <h2>Seamless integrations with your tech stack</h2>
             <p>Export ready-to-edit reports and plug into tools your team already uses.</p>
         </div>
 
@@ -1356,25 +1356,48 @@
                         </feMerge>
                     </filter>
                 </defs>
-
+            
                 <!-- Lines connecting to central hub -->
-                <path d="M 600 400 Q 300 200 180 120" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-                <path d="M 600 400 Q 900 200 1020 120" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-                <path d="M 600 400 Q 300 600 120 600" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-                <path d="M 600 400 Q 900 600 1080 600" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-
-                <!-- Animated particles -->
-                <circle cx="400" cy="300" r="2" fill="rgba(128, 91, 135, 0.8)">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M 400 300 Q 500 350 600 400" />
+                <path d="M 180 120 Q 300 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
+                <path d="M 1020 120 Q 900 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
+                <path d="M 120 600 Q 300 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
+                <path d="M 1080 600 Q 900 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
+            
+                <!-- Animated particles - Top Left to Center -->
+                <circle r="3" fill="rgba(128, 91, 135, 0.9)">
+                    <animateMotion dur="3s" repeatCount="indefinite" path="M 180 120 Q 300 200 600 400" />
                 </circle>
-                <circle cx="800" cy="300" r="2" fill="rgba(212, 149, 90, 0.8)">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M 800 300 Q 700 350 600 400" />
+                
+                <!-- Animated particles - Top Right to Center -->
+                <circle r="3" fill="rgba(212, 149, 90, 0.9)">
+                    <animateMotion dur="3s" repeatCount="indefinite" begin="0.75s" path="M 1020 120 Q 900 200 600 400" />
                 </circle>
-                <circle cx="400" cy="500" r="2" fill="rgba(128, 91, 135, 0.8)">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M 400 500 Q 500 450 600 400" />
+                
+                <!-- Animated particles - Bottom Left to Center -->
+                <circle r="3" fill="rgba(128, 91, 135, 0.9)">
+                    <animateMotion dur="3s" repeatCount="indefinite" begin="1.5s" path="M 120 600 Q 300 600 600 400" />
                 </circle>
-                <circle cx="800" cy="500" r="2" fill="rgba(212, 149, 90, 0.8)">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M 800 500 Q 700 450 600 400" />
+                
+                <!-- Animated particles - Bottom Right to Center -->
+                <circle r="3" fill="rgba(212, 149, 90, 0.9)">
+                    <animateMotion dur="3s" repeatCount="indefinite" begin="2.25s" path="M 1080 600 Q 900 600 600 400" />
+                </circle>
+                
+                <!-- Additional particles going the opposite direction -->
+                <circle r="3" fill="rgba(212, 149, 90, 0.7)">
+                    <animateMotion dur="3s" repeatCount="indefinite" begin="0.5s" path="M 600 400 Q 300 200 180 120" />
+                </circle>
+                
+                <circle r="3" fill="rgba(128, 91, 135, 0.7)">
+                    <animateMotion dur="3s" repeatCount="indefinite" begin="1.25s" path="M 600 400 Q 900 200 1020 120" />
+                </circle>
+                
+                <circle r="3" fill="rgba(212, 149, 90, 0.7)">
+                    <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M 600 400 Q 300 600 120 600" />
+                </circle>
+                
+                <circle r="3" fill="rgba(128, 91, 135, 0.7)">
+                    <animateMotion dur="3s" repeatCount="indefinite" begin="2.75s" path="M 600 400 Q 900 600 1080 600" />
                 </circle>
             </svg>
         </div>
