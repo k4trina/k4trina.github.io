@@ -389,118 +389,62 @@
             color: #dc2626;
         }
         
-        /* Features Section */
+        /* Features Section - Simplified */
         .features {
-            padding: 100px 0;
-            background: #fafafa;
-        }
-        
-        .section-header {
-            margin-bottom: 60px;
-            text-align: center;
-        }
-        
-        .section-header h2 {
-            font-size: clamp(36px, 4vw, 48px);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-            position: relative;
-            padding-bottom: 20px;
-        }
-        
-        .section-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-        
-        .section-header p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .features-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 80px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        
-        .feature-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            padding: 0;
-            border-radius: 0;
-            background: transparent;
-            border: none;
-        }
-        
-        .feature-card:hover {
-            box-shadow: none;
-            transform: none;
-            border-color: transparent;
-        }
-        
-        .feature-card::before {
-            display: none;
-        }
-        
-        .feature-content {
-            max-width: 460px;
-        }
-        
-        .feature-card:nth-child(even) .feature-content {
-            order: 2;
-            margin-left: auto;
-        }
-        
-        .feature-card:nth-child(even) .feature-visual {
-            order: 1;
-        }
-        
-        .feature-visual {
+            padding: 80px 0;
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
+        }
+        
+        .features-grid-simple {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-card-simple {
+            text-align: center;
+            padding: 0;
+        }
+        
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--border);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            color: var(--primary);
+            background: rgba(128, 91, 135, 0.08);
+            border-radius: 12px;
         }
         
-        .feature-visual img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .feature-card h3 {
-            font-size: 32px;
+        .feature-card-simple h3 {
+            font-size: 20px;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
         }
         
-        .feature-card p {
+        .feature-card-simple p {
             color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 16px;
+            line-height: 1.6;
+            font-size: 15px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .features {
+                padding: 60px 0;
+            }
+            
+            .features-grid-simple {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
         }
         
         /* Use Cases Section */
@@ -932,7 +876,55 @@
         </div>
     </section>-->
 
-
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Three tools. One workflow.</h2>
+                <p>From specs to pricing intelligence—faster and more accurate than manual review</p>
+            </div>
+            
+            <div class="features-grid-simple">
+                <div class="feature-card-simple">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <line x1="10" y1="9" x2="8" y2="9"></line>
+                        </svg>
+                    </div>
+                    <h3>Smart Spec Extraction</h3>
+                    <p>Upload specs and drawings. Get organized material lists and scopes in minutes—no more manual reading.</p>
+                </div>
+                
+                <div class="feature-card-simple">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </div>
+                    <h3>Instant Bid Leveling</h3>
+                    <p>Compare sub bids side-by-side. Spot gaps, overlaps, and missing scope items automatically.</p>
+                </div>
+                
+                <div class="feature-card-simple">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>National Pricing Data</h3>
+                    <p>Access real-time material costs and market trends to validate estimates and spot price shifts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Use Cases Section -->
     <!-- Comment for now
