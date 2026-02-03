@@ -863,6 +863,114 @@
             opacity: 0.4;
         }
         
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: #9ca3af;
+            padding: 60px 0 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-brand {
+            max-width: 400px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border-radius: 6px;
+        }
+        
+        .footer-logo span {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .footer-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+        
+        .footer-patent {
+            font-size: 12px;
+            color: #6b7280;
+            font-style: italic;
+        }
+        
+        .footer-section h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .footer-legal a {
+            font-size: 13px;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-legal a:hover {
+            color: #9ca3af;
+        }
+        
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .container {
@@ -934,6 +1042,16 @@
             .cta-box {
                 padding: 48px 28px;
             }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -973,7 +1091,7 @@
                 
                 <div class="hero-actions">
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
-                    <a href="mailto:lisa@bidblox.ai?subject=Trial Request" class="btn-secondary">Request Free Trial →</a>
+                    <a href="/cdn-cgi/l/email-protection#8ee2e7fdefceece7eaece2e1f6a0efe7b1fdfbece4ebedfab3dafce7efe2aedcebfffbebfdfa" class="btn-secondary">Request Free Trial →</a>
                 </div>
                 
                 <div class="hero-stats">
@@ -1138,49 +1256,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Features Section -->
-    <!--
-    <section class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Three tools. One workflow.</h2>
-                <p>From specs to pricing intelligence to awarded subs—faster and more accurate than manual review</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-content">
-                        <h3>Smart Spec Extraction</h3>
-                        <p>Upload project specs and drawings. Our AI extracts materials and scopes of work specific to your trade package, which means no more reading 200+ page documents.</p>
-                    </div>
-                    <div class="feature-visual">
-                        <img src="assets/img/spec-extraction.jpg" alt="Spec extraction showing main scope and materials list" loading="lazy">
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-content">
-                        <h3>Instant Bid Leveling</h3>
-                        <p>Compare sub-contractor bids side-by-side. Spot gaps, overlaps, and missing scope items instantly.</p>
-                    </div>
-                    <div class="feature-visual">
-                        <img src="assets/img/bid-leveling.jpg" alt="Bid comparison table showing multiple contractor quotes" loading="lazy">
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-content">
-                        <h3>National Pricing Database</h3>
-                        <p>Access real-time material costs from public data sources. Track pricing trends nationally to validate your estimates and spot market shifts.</p>
-                    </div>
-                    <div class="feature-visual">
-                        <img src="assets/img/pricing-insights.jpg" alt="Pricing insights with market trends and key indicators" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>-->
 
     <!-- Features Section -->
     <section class="features">
@@ -1404,38 +1479,6 @@
     </div>
 </section>
 
-    <!-- Use Cases Section -->
-    <!-- Comment for now
-    <section class="use-cases">
-        <div class="container">
-            <div class="section-header">
-                <h2>Built for every type of GC</h2>
-                <p>Whether you're bidding the full project or just your scope, we help you clarify responsibilities</p>
-            </div>
-            
-            <div class="use-case-grid">
-                <div class="use-case-card">
-                    <span class="use-case-label">Full-Scope GCs</span>
-                    <h3>Complete Material Lists</h3>
-                    <p>Get every material and SOW from project specs in minutes. Ensure nothing is missed before you price the entire job.</p>
-                </div>
-                
-                <div class="use-case-card">
-                    <span class="use-case-label">Partial-Scope GCs</span>
-                    <h3>Isolate Your Responsibilities</h3>
-                    <p>Instantly identify which specs apply to YOUR trade package. Stop wasting time reading sections that don't affect your bid.</p>
-                </div>
-                
-                <div class="use-case-card">
-                    <span class="use-case-label">Construction Managers</span>
-                    <h3>Verify Sub Coverage</h3>
-                    <p>Ensure sub-contractors have quoted all required work. Catch coverage gaps and overlaps before signing contracts.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
-
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
@@ -1444,7 +1487,7 @@
                 <p>See how Bidblox transforms your bid process in a 15-minute demo</p>
                 <div class="hero-actions">
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
-                    <a href="mailto:team@bidblox.ai?subject=Trial Request" class="btn-secondary">Try It Free →</a>
+                    <a href="/cdn-cgi/l/email-protection#88fcede9e5c8eae1eceae4e7f0a6e9e1b7fbfdeae2edebfcb5dcfae1e9e4a8daedf9fdedfbfc" class="btn-secondary">Try It Free →</a>
                 </div>
             </div>
         </div>
@@ -1463,5 +1506,50 @@
             </div>
         </div>
     </section>
-</body>
-</html>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-mark">
+                            <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+                                <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
+                            </svg>
+                        </div>
+                        <span>Bidblox</span>
+                    </div>
+                    <p class="footer-description">
+                        Transforming the construction bidding process with AI-powered scope analysis and intelligent bid leveling. We assist businesses in responding to calls for tenders and requests for proposals (RFPs).
+                    </p>
+                    <p class="footer-patent">Patent pending technology</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <div class="footer-links">
+                        <a href="#features">Features</a>
+                        <a href="#integrations">Integrations</a>
+                        <a href="https://calendly.com/lisa-bidblox/30min">Request Demo</a>
+                        <a href="/cdn-cgi/l/email-protection#aedacbcfc3eeccc7caccc2c1d680cfc791dddbccc4cbcdda93fadcc7cfc28efccbdfdbcbddda">Free Trial</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <div class="footer-links">
+                        <a href="/cdn-cgi/l/email-protection#81f5e4e0ecc1e3e8e5e3edeef9afe0e8">Contact Us</a>
+                        <a href="http://demo.bidblox.ai">Sign In</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2025 Bidblox. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                    <a href="/cdn-cgi/l/email
