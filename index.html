@@ -166,6 +166,19 @@
             margin-bottom: 60px;
             justify-content: center;
         }
+
+        .hero-actions a:not(.btn-primary) {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .hero-actions a:not(.btn-primary):hover {
+            opacity: 0.6;
+        }
         
         .hero-stats {
             display: flex;
@@ -424,278 +437,197 @@
         }
 
         /* Integrations Section */
-.integrations {
-    padding: 100px 0;
-    background: #fafafa;
-    position: relative;
-    overflow: hidden;
-}
+        .integrations {
+            padding: 100px 0;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
 
-.section-eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 16px;
-}
+        .section-eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
 
-.integrations-showcase {
-    position: relative;
-    min-height: 600px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+        .integrations-showcase {
+            position: relative;
+            min-height: 600px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* Central Hub */
-.central-hub {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-}
+        .central-hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
 
-.hub-icon {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 16px;
-}
+        .hub-icon {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+        }
 
-.hub-logo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-}
+        .hub-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
 
-.hub-logo .logo-mark {
-    width: 56px;
-    height: 56px;
-    background: var(--text-primary);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+        .hub-logo .logo-mark {
+            width: 56px;
+            height: 56px;
+            background: var(--text-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-.hub-rings {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+        .hub-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-.ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid rgba(128, 91, 135, 0.2);
-    border-radius: 50%;
-    animation: pulse 3s ease-in-out infinite;
-}
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(128, 91, 135, 0.2);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
 
-.ring-1 {
-    width: 80px;
-    height: 80px;
-    animation-delay: 0s;
-}
+        .ring-1 { width: 80px; height: 80px; animation-delay: 0s; }
+        .ring-2 { width: 100px; height: 100px; animation-delay: 1s; }
+        .ring-3 { width: 120px; height: 120px; animation-delay: 2s; }
 
-.ring-2 {
-    width: 100px;
-    height: 100px;
-    animation-delay: 1s;
-}
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
 
-.ring-3 {
-    width: 120px;
-    height: 120px;
-    animation-delay: 2s;
-}
+        .hub-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
 
-@keyframes pulse {
-    0%, 100% {
-        opacity: 0.3;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-        opacity: 0.6;
-        transform: translate(-50%, -50%) scale(1.1);
-    }
-}
+        .integration-category {
+            position: absolute;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
 
-.hub-label {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
-}
+        .integration-category:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
 
-/* Integration Categories */
-.integration-category {
-    position: absolute;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 24px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
-}
+        .category-construction { top: 40px; left: 40px; }
+        .category-bidding { top: 40px; right: 40px; }
+        .category-productivity { bottom: 40px; left: 40px; }
+        .category-cloud { bottom: 40px; right: 40px; }
 
-.integration-category:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-}
+        .category-header h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
 
-.category-construction {
-    top: 40px;
-    left: 40px;
-}
+        .category-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-.category-bidding {
-    top: 40px;
-    right: 40px;
-}
+        .integration-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: #fafafa;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
 
-.category-productivity {
-    bottom: 40px;
-    left: 40px;
-}
+        .integration-item:hover { background: #f0f0f0; }
 
-.category-cloud {
-    bottom: 40px;
-    right: 40px;
-}
+        .item-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
 
-.category-header h4 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
+        .integration-item span {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+            white-space: nowrap;
+        }
 
-.category-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-.integration-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 12px;
-    background: #fafafa;
-    border-radius: 6px;
-    transition: all 0.2s;
-}
-
-.integration-item:hover {
-    background: #f0f0f0;
-}
-
-.item-icon {
-    width: 32px;
-    height: 32px;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    flex-shrink: 0;
-}
-
-.integration-item span {
-    font-size: 13px;
-    color: var(--text-primary);
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-/* Connection Lines */
-.connection-lines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-    .integrations-showcase {
-        min-height: 800px;
-    }
-    
-    .category-construction {
-        top: 20px;
-        left: 20px;
-        right: auto;
-    }
-    
-    .category-bidding {
-        top: 20px;
-        right: 20px;
-        left: auto;
-    }
-    
-    .category-productivity {
-        bottom: 180px;
-        left: 20px;
-        right: auto;
-    }
-    
-    .category-cloud {
-        bottom: 20px;
-        left: 20px;
-        right: auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .integrations {
-        padding: 60px 0;
-    }
-    
-    .integrations-showcase {
-        min-height: 1000px;
-    }
-    
-    .integration-category {
-        position: relative;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        margin-bottom: 20px;
-    }
-    
-    .central-hub {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        margin-bottom: 40px;
-    }
-    
-    .connection-lines {
-        display: none;
-    }
-}
+        @media (max-width: 768px) {
+            .integrations { padding: 60px 0; }
+            .integrations-showcase { min-height: 1000px; }
+            .integration-category {
+                position: relative;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                margin-bottom: 20px;
+            }
+            .central-hub {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin-bottom: 40px;
+            }
+            .connection-lines { display: none; }
+        }
         
-        /* Features Section - Simplified */
+        /* Features Section */
         .features {
             padding: 80px 0;
             background: white;
@@ -741,66 +673,10 @@
             max-width: 320px;
             margin: 0 auto;
         }
-        
+
         @media (max-width: 768px) {
-            .features {
-                padding: 60px 0;
-            }
-            
-            .features-grid-simple {
-                grid-template-columns: 1fr;
-                gap: 48px;
-            }
-        }
-        
-        /* Use Cases Section */
-        .use-cases {
-            padding: 100px 0;
-            background: white;
-        }
-        
-        .use-case-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-        
-        .use-case-card {
-            padding: 32px 28px;
-            border-radius: 12px;
-            background: #fafafa;
-            transition: all 0.2s;
-        }
-        
-        .use-case-card:hover {
-            background: #f5f5f5;
-        }
-        
-        .use-case-label {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
-            background: rgba(212, 149, 90, 0.15);
-            color: var(--accent);
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border: 1px solid rgba(212, 149, 90, 0.3);
-        }
-        
-        .use-case-card h3 {
-            font-size: 18px;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
-        .use-case-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 14px;
+            .features { padding: 60px 0; }
+            .features-grid-simple { grid-template-columns: 1fr; gap: 48px; }
         }
         
         /* CTA Section */
@@ -832,6 +708,8 @@
             color: var(--text-secondary);
             margin-bottom: 32px;
         }
+
+
         
         /* Trust Section */
         .trust-section {
@@ -840,9 +718,7 @@
             background: white;
         }
         
-        .trust-content {
-            text-align: center;
-        }
+        .trust-content { text-align: center; }
         
         .trust-label {
             color: var(--text-secondary);
@@ -877,9 +753,7 @@
             margin-bottom: 40px;
         }
         
-        .footer-brand {
-            max-width: 400px;
-        }
+        .footer-brand { max-width: 400px; }
         
         .footer-logo {
             display: flex;
@@ -936,9 +810,7 @@
             transition: color 0.2s;
         }
         
-        .footer-links a:hover {
-            color: white;
-        }
+        .footer-links a:hover { color: white; }
         
         .footer-bottom {
             padding-top: 32px;
@@ -967,91 +839,28 @@
             transition: color 0.2s;
         }
         
-        .footer-legal a:hover {
-            color: #9ca3af;
-        }
-        
-        /* Mobile Responsive */
+        .footer-legal a:hover { color: #9ca3af; }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-            
-            .nav-container {
-                padding: 16px 20px;
-            }
-            
-            .btn-secondary {
-                display: none;
-            }
-            
-            .hero {
-                padding: 120px 0 60px;
-            }
-            
+            .container { padding: 0 20px; }
+            .nav-container { padding: 16px 20px; }
+            .btn-secondary { display: none; }
+            .hero { padding: 120px 0 60px; }
             .dashboard-header {
                 padding: 16px 20px;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
             }
-            
-            .dashboard-toolbar {
-                width: 100%;
-            }
-            
-            .toolbar-btn {
-                flex: 1;
-                text-align: center;
-            }
-            
-            .spreadsheet-container {
-                min-width: 900px;
-            }
-            
-            .spreadsheet-header {
-                grid-template-columns: 40px 300px repeat(3, 180px);
-            }
-            
-            .spreadsheet-row {
-                grid-template-columns: 40px 300px repeat(3, 180px);
-            }
-            
-            .features-grid {
-                gap: 60px;
-            }
-            
-            .feature-card {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-            
-            .feature-card:nth-child(even) .feature-content {
-                order: 1;
-                margin-left: 0;
-            }
-            
-            .feature-card:nth-child(even) .feature-visual {
-                order: 2;
-            }
-            
-            .use-case-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-box {
-                padding: 48px 28px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            .dashboard-toolbar { width: 100%; }
+            .toolbar-btn { flex: 1; text-align: center; }
+            .spreadsheet-container { min-width: 900px; }
+            .spreadsheet-header { grid-template-columns: 40px 300px repeat(3, 180px); }
+            .spreadsheet-row { grid-template-columns: 40px 300px repeat(3, 180px); }
+            .cta-box { padding: 48px 28px; }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -1128,7 +937,6 @@
                 </div>
                 <div class="dashboard-body">
                     <div class="spreadsheet-container">
-                        <!-- Header Row -->
                         <div class="spreadsheet-header">
                             <div class="header-cell">#</div>
                             <div class="header-cell">Scope of Work</div>
@@ -1146,7 +954,6 @@
                             </div>
                         </div>
                         
-                        <!-- Category: ESC Controls -->
                         <div class="spreadsheet-row category-row">
                             <div class="row-number">1</div>
                             <div class="row-cell item-name">ESC Controls & Demolition</div>
@@ -1187,7 +994,6 @@
                             <div class="row-cell price-cell">$41,200</div>
                         </div>
                         
-                        <!-- Category: Earthworks -->
                         <div class="spreadsheet-row category-row">
                             <div class="row-number">6</div>
                             <div class="row-cell item-name">Earthworks</div>
@@ -1307,177 +1113,98 @@
         </div>
     </section>
 
-
     <!-- Integrations Section -->
-<section class="integrations" id="integrations">
-    <div class="container">
-        <div class="section-header">
-            <div class="section-eyebrow">Platform Ecosystem</div>
-            <h2>Seamless integrations with your tech stack</h2>
-            <p>Export ready-to-edit reports and plug into tools your team already uses.</p>
-        </div>
+    <section class="integrations" id="integrations">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Platform Ecosystem</div>
+                <h2>Seamless integrations with your tech stack</h2>
+                <p>Export ready-to-edit reports and plug into tools your team already uses.</p>
+            </div>
 
-        <div class="integrations-showcase">
-            <!-- Central Bidblox Hub -->
-            <div class="central-hub">
-                <div class="hub-icon">
-                    <div class="hub-logo">
-                        <div class="logo-mark">
-                            <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
-                                <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
-                                <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
-                                <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
-                            </svg>
+            <div class="integrations-showcase">
+                <div class="central-hub">
+                    <div class="hub-icon">
+                        <div class="hub-logo">
+                            <div class="logo-mark">
+                                <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+                                    <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
+                                    <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
+                                    <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="hub-rings">
+                            <div class="ring ring-1"></div>
+                            <div class="ring ring-2"></div>
+                            <div class="ring ring-3"></div>
                         </div>
                     </div>
-                    <div class="hub-rings">
-                        <div class="ring ring-1"></div>
-                        <div class="ring ring-2"></div>
-                        <div class="ring ring-3"></div>
-                    </div>
+                    <div class="hub-label">Bidblox</div>
                 </div>
-                <div class="hub-label">Bidblox</div>
-            </div>
 
-            <!-- Integration Categories -->
-            <div class="integration-category category-construction">
-                <div class="category-header">
-                    <h4>Construction Platforms</h4>
-                </div>
-                <div class="category-icons">
-                    <div class="integration-item">
-                        <div class="item-icon">P</div>
-                        <span>Procore</span>
-                    </div>
-                    <div class="integration-item">
-                        <div class="item-icon">BC</div>
-                        <span>Building Connected</span>
-                    </div>
-                    <div class="integration-item">
-                        <div class="item-icon">A</div>
-                        <span>Autodesk</span>
+                <div class="integration-category category-construction">
+                    <div class="category-header"><h4>Construction Platforms</h4></div>
+                    <div class="category-icons">
+                        <div class="integration-item"><div class="item-icon">P</div><span>Procore</span></div>
+                        <div class="integration-item"><div class="item-icon">BC</div><span>Building Connected</span></div>
+                        <div class="integration-item"><div class="item-icon">A</div><span>Autodesk</span></div>
                     </div>
                 </div>
-            </div>
 
-            <div class="integration-category category-bidding">
-                <div class="category-header">
-                    <h4>Bid Sources</h4>
-                </div>
-                <div class="category-icons">
-                    <div class="integration-item">
-                        <div class="item-icon">B&T</div>
-                        <span>Bids&Tenders</span>
-                    </div>
-                    <div class="integration-item">
-                        <div class="item-icon">M</div>
-                        <span>Merx</span>
-                    </div>
-                    <div class="integration-item">
-                        <div class="item-icon">BI</div>
-                        <span>Biddingo</span>
-                    </div>
-                    <div class="integration-item">
-                        <div class="item-icon">AP</div>
-                        <span>Alberta Purchasing</span>
-                    </div>
-                    <div class="integration-item">
-                        <div class="item-icon">OG</div>
-                        <span>OpenGov</span>
+                <div class="integration-category category-bidding">
+                    <div class="category-header"><h4>Bid Sources</h4></div>
+                    <div class="category-icons">
+                        <div class="integration-item"><div class="item-icon">B&T</div><span>Bids&amp;Tenders</span></div>
+                        <div class="integration-item"><div class="item-icon">M</div><span>Merx</span></div>
+                        <div class="integration-item"><div class="item-icon">BI</div><span>Biddingo</span></div>
+                        <div class="integration-item"><div class="item-icon">AP</div><span>Alberta Purchasing</span></div>
+                        <div class="integration-item"><div class="item-icon">OG</div><span>OpenGov</span></div>
                     </div>
                 </div>
-            </div>
 
-            <div class="integration-category category-productivity">
-                <div class="category-header">
-                    <h4>Productivity Tools</h4>
-                </div>
-                <div class="category-icons">
-                    <div class="integration-item">
-                        <div class="item-icon">M</div>
-                        <span>Microsoft Outlook</span>
-                    </div>
-                    <div class="integration-item">
-                        <div class="item-icon">G</div>
-                        <span>Gmail</span>
+                <div class="integration-category category-productivity">
+                    <div class="category-header"><h4>Productivity Tools</h4></div>
+                    <div class="category-icons">
+                        <div class="integration-item"><div class="item-icon">M</div><span>Microsoft Outlook</span></div>
+                        <div class="integration-item"><div class="item-icon">G</div><span>Gmail</span></div>
                     </div>
                 </div>
-            </div>
 
-            <div class="integration-category category-cloud">
-                <div class="category-header">
-                    <h4>Cloud Storage</h4>
-                </div>
-                <div class="category-icons">
-                    <div class="integration-item">
-                        <div class="item-icon">GD</div>
-                        <span>Google Drive</span>
+                <div class="integration-category category-cloud">
+                    <div class="category-header"><h4>Cloud Storage</h4></div>
+                    <div class="category-icons">
+                        <div class="integration-item"><div class="item-icon">GD</div><span>Google Drive</span></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Connection Lines -->
-            <svg class="connection-lines" viewBox="0 0 1200 800" fill="none">
-                <defs>
-                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:rgba(128, 91, 135, 0.4);stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:rgba(212, 149, 90, 0.4);stop-opacity:1" />
-                    </linearGradient>
-                    <filter id="glow">
-                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-            
-                <!-- Lines connecting to central hub -->
-                <path d="M 180 120 Q 300 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
-                <path d="M 1020 120 Q 900 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
-                <path d="M 120 600 Q 300 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
-                <path d="M 1080 600 Q 900 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" class="connection-line" />
-            
-                <!-- Animated particles - Top Left to Center -->
-                <circle r="3" fill="rgba(128, 91, 135, 0.9)">
-                    <animateMotion dur="3s" repeatCount="indefinite" path="M 180 120 Q 300 200 600 400" />
-                </circle>
-                
-                <!-- Animated particles - Top Right to Center -->
-                <circle r="3" fill="rgba(212, 149, 90, 0.9)">
-                    <animateMotion dur="3s" repeatCount="indefinite" begin="0.75s" path="M 1020 120 Q 900 200 600 400" />
-                </circle>
-                
-                <!-- Animated particles - Bottom Left to Center -->
-                <circle r="3" fill="rgba(128, 91, 135, 0.9)">
-                    <animateMotion dur="3s" repeatCount="indefinite" begin="1.5s" path="M 120 600 Q 300 600 600 400" />
-                </circle>
-                
-                <!-- Animated particles - Bottom Right to Center -->
-                <circle r="3" fill="rgba(212, 149, 90, 0.9)">
-                    <animateMotion dur="3s" repeatCount="indefinite" begin="2.25s" path="M 1080 600 Q 900 600 600 400" />
-                </circle>
-                
-                <!-- Additional particles going the opposite direction -->
-                <circle r="3" fill="rgba(212, 149, 90, 0.7)">
-                    <animateMotion dur="3s" repeatCount="indefinite" begin="0.5s" path="M 600 400 Q 300 200 180 120" />
-                </circle>
-                
-                <circle r="3" fill="rgba(128, 91, 135, 0.7)">
-                    <animateMotion dur="3s" repeatCount="indefinite" begin="1.25s" path="M 600 400 Q 900 200 1020 120" />
-                </circle>
-                
-                <circle r="3" fill="rgba(212, 149, 90, 0.7)">
-                    <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M 600 400 Q 300 600 120 600" />
-                </circle>
-                
-                <circle r="3" fill="rgba(128, 91, 135, 0.7)">
-                    <animateMotion dur="3s" repeatCount="indefinite" begin="2.75s" path="M 600 400 Q 900 600 1080 600" />
-                </circle>
-            </svg>
+                <svg class="connection-lines" viewBox="0 0 1200 800" fill="none">
+                    <defs>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:rgba(128, 91, 135, 0.4);stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:rgba(212, 149, 90, 0.4);stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                        </filter>
+                    </defs>
+                    <path d="M 180 120 Q 300 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+                    <path d="M 1020 120 Q 900 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+                    <path d="M 120 600 Q 300 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+                    <path d="M 1080 600 Q 900 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
+                    <circle r="3" fill="rgba(128, 91, 135, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" path="M 180 120 Q 300 200 600 400" /></circle>
+                    <circle r="3" fill="rgba(212, 149, 90, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" begin="0.75s" path="M 1020 120 Q 900 200 600 400" /></circle>
+                    <circle r="3" fill="rgba(128, 91, 135, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" begin="1.5s" path="M 120 600 Q 300 600 600 400" /></circle>
+                    <circle r="3" fill="rgba(212, 149, 90, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" begin="2.25s" path="M 1080 600 Q 900 600 600 400" /></circle>
+                    <circle r="3" fill="rgba(212, 149, 90, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="0.5s" path="M 600 400 Q 300 200 180 120" /></circle>
+                    <circle r="3" fill="rgba(128, 91, 135, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="1.25s" path="M 600 400 Q 900 200 1020 120" /></circle>
+                    <circle r="3" fill="rgba(212, 149, 90, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M 600 400 Q 300 600 120 600" /></circle>
+                    <circle r="3" fill="rgba(128, 91, 135, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="2.75s" path="M 600 400 Q 900 600 1080 600" /></circle>
+                </svg>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
@@ -1534,23 +1261,27 @@
                         <a href="#features">Features</a>
                         <a href="#integrations">Integrations</a>
                         <a href="https://calendly.com/lisa-bidblox/30min">Request Demo</a>
-                        <a href="mailto:lia@bidblox.ai">Free Trial</a>
-
+                        <a href="mailto:lisa@bidblox.ai">Free Trial</a>
                     </div>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Company</h4>
                     <div class="footer-links">
-                       <a href="mailto:lisa@bidblox.ai">Contact Us</a>
+                        <a href="mailto:lisa@bidblox.ai">Contact Us</a>
                         <a href="http://demo.bidblox.ai">Sign In</a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <div class="footer-copyright">
-                    © 2025 Bidblox. All rights reserved.
-                </div>
+                <div class="footer-copyright">© 2025 Bidblox. All rights reserved.</div>
                 <div class="footer-legal">
-                    <a href="/cdn-cgi/l/email
+                    <a href="mailto:lisa@bidblox.ai">Privacy Policy</a>
+                    <a href="mailto:lisa@bidblox.ai">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
