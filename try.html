@@ -518,7 +518,7 @@
             </div>
 
             <div class="pitch-note">
-                <strong>One free sample per company.</strong> We review every submission personally before sending results. Expect a reply within 1–2 hours.
+                <strong>One free sample per company.</strong> We review every submission personally before sending results. Expect a reply within 1–2 business days.
             </div>
         </div>
 
@@ -562,7 +562,7 @@
                     <div class="form-group">
                         <label>Project files</label>
                         <div class="drop-zone" id="drop-zone">
-                            <input type="file" id="file-input" multiple accept=".pdf,.dwg,.dxf,.rvt,.ifc,.doc,.docx,.xls,.xlsx">
+                            <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx">
                             <div class="drop-icon">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -571,7 +571,7 @@
                                 </svg>
                             </div>
                             <div class="drop-zone-label">Drop files here or click to browse</div>
-                            <div class="drop-zone-sub">Up to 5 files · 100 MB each · PDF, DWG, DXF, RVT, Word, Excel</div>
+                            <div class="drop-zone-sub">Up to 5 files · 100 MB each · PDF or Word</div>
                         </div>
                         <div class="file-list" id="file-list"></div>
                     </div>
@@ -600,7 +600,7 @@
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
                     <h3>Files received.</h3>
-                    <p>We've got your project files and will have a full scope of work ready within <strong>1–2 business days</strong>. Check your inbox — we'll email the results directly.</p>
+                    <p>We've got your project files and will have a full scope of work ready within <strong>1–2 hours</strong>. Check your inbox — we'll email the results directly.</p>
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary" style="display:inline-block">Schedule a call in the meantime →</a>
                 </div>
             </div>
@@ -643,8 +643,17 @@
 </footer>
 
 <script>
-    // Replace with your actual backend URL
     const API_BASE_URL = 'https://backend-gcs-service-staging-280620840867.us-central1.run.app';
+
+    const PERSONAL_DOMAINS = new Set([
+      'gmail.com', 'googlemail.com',
+      'yahoo.com', 'yahoo.ca', 'yahoo.co.uk',
+      'hotmail.com', 'hotmail.ca', 'hotmail.co.uk',
+      'outlook.com', 'live.com', 'msn.com',
+      'icloud.com', 'me.com', 'mac.com',
+      'aol.com', 'protonmail.com', 'proton.me',
+      'mail.com', 'ymail.com'
+    ]);
 
     document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -750,6 +759,11 @@
             showError('Please enter a valid email address.');
             return;
         }
+        const domain = email.split('@')[1].toLowerCase();
+        if (PERSONAL_DOMAINS.has(domain)) {
+            showError('Please use your work email address, not a personal one.');
+            return;
+        }
         if (selectedFiles.length === 0) {
             showError('Please upload at least one project file.');
             return;
@@ -787,6 +801,9 @@
 
             if (res.status === 409 && data.error === 'already_submitted') {
                 showState('state-already');
+
+
+                
                 return;
             }
 
