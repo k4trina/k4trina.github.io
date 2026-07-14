@@ -1380,6 +1380,29 @@
                 padding: 22px 24px;
             }
         }
+
+        /* Product showcase (replaces integrations hub) */
+        .product-shot {
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.10);
+        }
+        .product-shot-bar {
+            display: flex; align-items: center; gap: 8px;
+            padding: 12px 16px; background: #f5f5f5;
+            border-bottom: 1px solid var(--border);
+        }
+        .product-shot-bar span { width: 11px; height: 11px; border-radius: 50%; background: #d4d4d8; }
+        .product-shot img { display: block; width: 100%; height: auto; }
+        .interop-note {
+            max-width: 720px; margin: 34px auto 0; text-align: center;
+            font-size: 14.5px; line-height: 1.65; color: var(--text-secondary);
+        }
+        .interop-note strong { color: var(--text-primary); font-weight: 600; }
     </style>
 </head>
 <body>
@@ -1499,92 +1522,17 @@
     <section class="integrations" id="integrations">
         <div class="container">
             <div class="section-header">
-                <div class="section-eyebrow">Platform Ecosystem</div>
-                <h2>Seamless integrations with your tech stack</h2>
-                <p>Export ready-to-edit reports and plug into tools your team already uses.</p>
+                <div class="section-eyebrow">See It Work</div>
+                <h2>Every scope, traced back to the source</h2>
+                <p>Bidblox reads the real specs and drawings, extracts scope with citations you can open, levels the bids, and benchmarks the pricing &mdash; all grounded in one knowledge graph.</p>
             </div>
 
-            <div class="integrations-showcase">
-                <div class="central-hub">
-                    <div class="hub-icon">
-                        <div class="hub-logo">
-                            <div class="logo-mark">
-                                <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
-                                    <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
-                                    <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
-                                    <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="hub-rings">
-                            <div class="ring ring-1"></div>
-                            <div class="ring ring-2"></div>
-                            <div class="ring ring-3"></div>
-                        </div>
-                    </div>
-                    <div class="hub-label">Bidblox</div>
-                </div>
+            <figure class="product-shot">
+                <div class="product-shot-bar"><span></span><span></span><span></span></div>
+                <img src="assets/product/sow-extraction.png" alt="Bidblox extracting a scope of work with clickable spec and drawing citations, shown beside the source drawing" loading="lazy" />
+            </figure>
 
-                <div class="integration-category category-construction">
-                    <div class="category-header"><h4>Construction Platforms</h4></div>
-                    <div class="category-icons">
-                        <div class="integration-item"><div class="item-icon">P</div><span>Procore</span></div>
-                        <div class="integration-item"><div class="item-icon">BC</div><span>Building Connected</span></div>
-                        <div class="integration-item"><div class="item-icon">A</div><span>Autodesk</span></div>
-                    </div>
-                </div>
-
-                <div class="integration-category category-bidding">
-                    <div class="category-header"><h4>Bid Sources</h4></div>
-                    <div class="category-icons">
-                        <div class="integration-item"><div class="item-icon">B&T</div><span>Bids&amp;Tenders</span></div>
-                        <div class="integration-item"><div class="item-icon">M</div><span>Merx</span></div>
-                        <div class="integration-item"><div class="item-icon">BI</div><span>Biddingo</span></div>
-                        <div class="integration-item"><div class="item-icon">AP</div><span>Alberta Purchasing</span></div>
-                        <div class="integration-item"><div class="item-icon">OG</div><span>OpenGov</span></div>
-                    </div>
-                </div>
-
-                <div class="integration-category category-productivity">
-                    <div class="category-header"><h4>Productivity Tools</h4></div>
-                    <div class="category-icons">
-                        <div class="integration-item"><div class="item-icon">M</div><span>Microsoft Outlook</span></div>
-                        <div class="integration-item"><div class="item-icon">G</div><span>Gmail</span></div>
-                    </div>
-                </div>
-
-                <div class="integration-category category-cloud">
-                    <div class="category-header"><h4>Cloud Storage</h4></div>
-                    <div class="category-icons">
-                        <div class="integration-item"><div class="item-icon">GD</div><span>Google Drive</span></div>
-                    </div>
-                </div>
-
-                <svg class="connection-lines" viewBox="0 0 1200 800" fill="none">
-                    <defs>
-                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:rgba(128, 91, 135, 0.4);stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:rgba(212, 149, 90, 0.4);stop-opacity:1" />
-                        </linearGradient>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                        </filter>
-                    </defs>
-                    <path d="M 180 120 Q 300 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-                    <path d="M 1020 120 Q 900 200 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-                    <path d="M 120 600 Q 300 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-                    <path d="M 1080 600 Q 900 600 600 400" stroke="url(#lineGradient)" stroke-width="1.5" opacity="0.5" filter="url(#glow)" />
-                    <circle r="3" fill="rgba(128, 91, 135, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" path="M 180 120 Q 300 200 600 400" /></circle>
-                    <circle r="3" fill="rgba(212, 149, 90, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" begin="0.75s" path="M 1020 120 Q 900 200 600 400" /></circle>
-                    <circle r="3" fill="rgba(128, 91, 135, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" begin="1.5s" path="M 120 600 Q 300 600 600 400" /></circle>
-                    <circle r="3" fill="rgba(212, 149, 90, 0.9)"><animateMotion dur="3s" repeatCount="indefinite" begin="2.25s" path="M 1080 600 Q 900 600 600 400" /></circle>
-                    <circle r="3" fill="rgba(212, 149, 90, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="0.5s" path="M 600 400 Q 300 200 180 120" /></circle>
-                    <circle r="3" fill="rgba(128, 91, 135, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="1.25s" path="M 600 400 Q 900 200 1020 120" /></circle>
-                    <circle r="3" fill="rgba(212, 149, 90, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M 600 400 Q 300 600 120 600" /></circle>
-                    <circle r="3" fill="rgba(128, 91, 135, 0.7)"><animateMotion dur="3s" repeatCount="indefinite" begin="2.75s" path="M 600 400 Q 900 600 1080 600" /></circle>
-                </svg>
-            </div>
+            <p class="interop-note">Interoperable by design &mdash; bring documents in from <strong>Gmail</strong> and <strong>Google Drive</strong>, export ready-to-edit reports, and plug into the tools your team already uses. <strong>Outlook</strong> and deeper platform integrations are coming soon.</p>
         </div>
     </section>
 
