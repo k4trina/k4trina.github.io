@@ -12,6 +12,11 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        html {
+            scroll-padding-top: 90px;
+            scrollbar-gutter: stable;
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
@@ -128,6 +133,30 @@
             background: #f5f5f5;
         }
         
+        .nav-links {
+            display: none;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        @media (min-width: 900px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
         /* Hero Section */
         .hero {
             padding: 160px 0 100px;
@@ -738,8 +767,475 @@
             filter: grayscale(1);
             opacity: 0.4;
         }
-        
-        /* Footer */
+
+        .trust-logos span {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* ===== In the Spotlight ===== */
+        .spotlight {
+            padding: 100px 0;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .spotlight-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+        }
+
+        .spotlight-logos span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .spotlight-logos span:hover {
+            opacity: 1;
+            color: var(--text-primary);
+        }
+
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 16px;
+        }
+
+        .spotlight-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .spotlight-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .spotlight-source {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+        }
+
+        .spotlight-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        .spotlight-link-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: auto;
+        }
+
+        /* ===== Testimonials ===== */
+        .testimonials-section {
+            padding: 100px 0;
+            background: white;
+            overflow: hidden;
+        }
+
+        .testimonial-track-wrap {
+            position: relative;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent 0, black 64px, black calc(100% - 64px), transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0, black 64px, black calc(100% - 64px), transparent 100%);
+        }
+
+        .testimonial-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: testimonial-scroll 36s linear infinite;
+        }
+
+        .testimonial-track-wrap:hover .testimonial-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes testimonial-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .testimonial-track {
+                animation: none;
+            }
+        }
+
+        .testimonial-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 28px 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 360px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+            transform: translateY(-3px);
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+
+        .testimonial-quote-mark {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 64px;
+            line-height: 1;
+            color: var(--primary-light);
+            opacity: 0.35;
+            font-weight: 700;
+            height: 36px;
+        }
+
+        .testimonial-card p.quote {
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.65;
+            flex-grow: 1;
+        }
+
+        .testimonial-attribution {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .testimonial-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--text-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .testimonial-company {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .testimonial-card {
+                width: 300px;
+            }
+        }
+
+        /* ===== Case Study ===== */
+        .case-study-section {
+            padding: 100px 0;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .case-study-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .case-study-visual {
+            background: var(--text-primary);
+            padding: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 24px;
+            color: white;
+        }
+
+        .case-study-stat .num {
+            font-size: 30px;
+            font-weight: 600;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .case-study-stat .label {
+            font-size: 12px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+
+        .case-study-content {
+            padding: 44px;
+        }
+
+        .case-study-tag {
+            display: inline-block;
+            background: rgba(212, 149, 90, 0.1);
+            border: 1px solid rgba(212, 149, 90, 0.2);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .case-study-content h3 {
+            font-size: 23px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .case-study-content p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .case-study-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-size: 14px;
+        }
+
+        .case-study-link:hover {
+            opacity: 0.6;
+        }
+
+        @media (min-width: 768px) {
+            .case-study-inner {
+                grid-template-columns: 0.85fr 1fr;
+            }
+            .case-study-stat .num {
+                font-size: 34px;
+            }
+        }
+
+        /* ===== Product Steps ===== */
+        .product-steps-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .product-steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-step {
+            display: block;
+            padding: 28px 32px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .product-step:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .product-step-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 8px;
+        }
+
+        .product-step h3 {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .product-step p {
+            color: var(--text-secondary);
+            font-size: 14.5px;
+            line-height: 1.65;
+            max-width: 600px;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section {
+            padding: 100px 0;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .faq-list {
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 18px 22px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-family: inherit;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 0 22px 18px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .faq-answer p a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* ===== Footer social icons ===== */
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            transition: all 0.2s;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile */
         .footer {
             background: #1a1a1a;
             color: #9ca3af;
@@ -861,6 +1357,28 @@
             .cta-box { padding: 48px 28px; }
             .footer-content { grid-template-columns: 1fr; gap: 40px; }
             .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+            .spotlight, .testimonials-section, .case-study-section, .product-steps-section, .faq-section {
+                padding: 60px 0;
+            }
+
+            .testimonial-track {
+                gap: 16px;
+                animation-duration: 28s;
+            }
+
+            .testimonial-track-wrap {
+                mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+            }
+
+            .case-study-content, .case-study-visual {
+                padding: 28px;
+            }
+
+            .product-step {
+                padding: 22px 24px;
+            }
         }
     </style>
 </head>
@@ -878,6 +1396,12 @@
                 </div>
                 <span style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 17px;"><span style="color: var(--primary);">B</span>id<span style="color: var(--primary);">b</span>lox</span>
             </a>
+
+            <div class="nav-links">
+                <a href="product.html">Product</a>
+                <!-- <a href="case-study.html">Case Study</a> -->
+                <a href="trust.html">Trust Center</a>
+            </div>
             
             <div class="nav-buttons">
                 <a href="https://demo.bidblox.ai" class="btn-secondary">Sign In</a>
@@ -900,7 +1424,7 @@
                 
                 <div class="hero-actions">
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
-                    <a href="/try">Try It Free →</a>
+                    <!-- <a href="/try">Try It Free →</a> -->
                 </div>
                 
                 <div class="hero-stats">
@@ -915,148 +1439,6 @@
                     <div class="stat">
                         <div class="stat-value">5</div>
                         <div class="stat-label">Tools in One Platform</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dashboard Preview -->
-    <section class="dashboard-preview">
-        <div class="container">
-            <div class="dashboard-container">
-                <div class="dashboard-header">
-                    <div class="dashboard-title">
-                        <span>Bid Leveling Example</span>
-                        <span class="project-badge">Example Project</span>
-                    </div>
-                    <div class="dashboard-toolbar">
-                        <div class="toolbar-btn">Export</div>
-                        <div class="toolbar-btn">Settings</div>
-                    </div>
-                </div>
-                <div class="dashboard-body">
-                    <div class="spreadsheet-container">
-                        <div class="spreadsheet-header">
-                            <div class="header-cell">#</div>
-                            <div class="header-cell">Scope of Work</div>
-                            <div class="header-cell">
-                                <span class="contractor-name">Company A</span>
-                                <span class="contractor-total low-bid">$1,847,254</span>
-                            </div>
-                            <div class="header-cell">
-                                <span class="contractor-name">Company B</span>
-                                <span class="contractor-total">$1,923,180</span>
-                            </div>
-                            <div class="header-cell">
-                                <span class="contractor-name">Company C</span>
-                                <span class="contractor-total">$1,891,450</span>
-                            </div>
-                        </div>
-                        
-                        <div class="spreadsheet-row category-row">
-                            <div class="row-number">1</div>
-                            <div class="row-cell item-name">ESC Controls & Demolition</div>
-                            <div class="row-cell"></div>
-                            <div class="row-cell"></div>
-                            <div class="row-cell"></div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">2</div>
-                            <div class="row-cell item-name item-indent">Safety documents / shop drawings</div>
-                            <div class="row-cell price-cell">$33,679</div>
-                            <div class="row-cell price-cell lowest-price">$5,000</div>
-                            <div class="row-cell price-cell">$28,500</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">3</div>
-                            <div class="row-cell item-name item-indent">Site erosion controls</div>
-                            <div class="row-cell price-cell">$395,320</div>
-                            <div class="row-cell price-cell highest-price">$670,594</div>
-                            <div class="row-cell price-cell">$542,180</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">4</div>
-                            <div class="row-cell item-name item-indent">Site tree removal</div>
-                            <div class="row-cell price-cell lowest-price">$56,131</div>
-                            <div class="row-cell price-cell">$96,793</div>
-                            <div class="row-cell price-cell">$78,450</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">5</div>
-                            <div class="row-cell item-name item-indent">Demolish existing structures</div>
-                            <div class="row-cell price-cell lowest-price">$23,575</div>
-                            <div class="row-cell price-cell">$58,076</div>
-                            <div class="row-cell price-cell">$41,200</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row category-row">
-                            <div class="row-number">6</div>
-                            <div class="row-cell item-name">Earthworks</div>
-                            <div class="row-cell"></div>
-                            <div class="row-cell"></div>
-                            <div class="row-cell"></div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">7</div>
-                            <div class="row-cell item-name item-indent">Strip topsoil & stockpile</div>
-                            <div class="row-cell price-cell lowest-price">$3,717,350</div>
-                            <div class="row-cell price-cell">$3,955,585</div>
-                            <div class="row-cell price-cell">$3,824,720</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">8</div>
-                            <div class="row-cell item-name item-indent">Cut & fill new creek channel (80m)</div>
-                            <div class="row-cell price-cell highest-price">$2,042,156</div>
-                            <div class="row-cell price-cell lowest-price">$1,079,915</div>
-                            <div class="row-cell price-cell">$1,456,890</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">9</div>
-                            <div class="row-cell item-name item-indent">Cut & fill site for new development</div>
-                            <div class="row-cell price-cell highest-price">$1,594,615</div>
-                            <div class="row-cell price-cell lowest-price">$873,378</div>
-                            <div class="row-cell price-cell">$1,128,450</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">10</div>
-                            <div class="row-cell item-name item-indent">Temporary access roads</div>
-                            <div class="row-cell price-cell lowest-price">$426,966</div>
-                            <div class="row-cell price-cell highest-price">$713,105</div>
-                            <div class="row-cell price-cell">$589,340</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">11</div>
-                            <div class="row-cell item-name item-indent">Supply & place 300mm crusher run - Building A</div>
-                            <div class="row-cell price-cell lowest-price">$621,060</div>
-                            <div class="row-cell price-cell">$856,621</div>
-                            <div class="row-cell price-cell">$742,180</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">12</div>
-                            <div class="row-cell item-name item-indent">Supply & place base granular for paving</div>
-                            <div class="row-cell price-cell lowest-price">$2,957,441</div>
-                            <div class="row-cell price-cell highest-price">$3,487,715</div>
-                            <div class="row-cell price-cell">$3,124,890</div>
-                        </div>
-                        
-                        <div class="spreadsheet-row">
-                            <div class="row-number">13</div>
-                            <div class="row-cell item-name item-indent">Place topsoil for landscaping</div>
-                            <div class="row-cell price-cell highest-price">$244,200</div>
-                            <div class="row-cell price-cell lowest-price">$147,125</div>
-                            <div class="row-cell price-cell">$189,670</div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1206,6 +1588,239 @@
         </div>
     </section>
 
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-content">
+                <div class="trust-label">Backed by</div>
+                <div class="trust-logos">
+                    <!-- Replace each src below once the real logo files are uploaded -->
+                    <img src="assets/supported/Antler_logo.svg" alt="Antler" style="height: 28px;" onerror="this.outerHTML='<span>Antler</span>'">
+                    <img src="assets/supported/ySpace_logo.png" alt="YSpace" style="height: 28px;" onerror="this.outerHTML='<span>YSpace</span>'">
+                    <img src="assets/supported/venture_lab_crop.png" alt="ventureLAB" style="height: 35px;" onerror="this.outerHTML='<span>ventureLAB</span>'">
+                    <img src="assets/supported/IPON_logo.png" alt="IPON" style="height: 35px;" onerror="this.outerHTML='<span>IPON</span>'">
+                    <img src="assets/supported/scaleAI_logo.png" alt="Scale AI" style="height: 28px;" onerror="this.outerHTML='<span>Scale AI</span>'">
+                    <img src="assets/supported/connectionSiliconValley_logo.png" alt="Pathway" style="height: 28px;" onerror="this.outerHTML='<span>Pathway</span>'">
+                    <img src="assets/supported/TiE_logo.png" alt="TiE Toronto" style="height: 30px;" onerror="this.outerHTML='<span>TiE Toronto</span>'">
+                    <img src="assets/supported/dmz.png" alt="DMZ CHI" style="height: 35px;" onerror="this.outerHTML='<span>DMZ CHI</span>'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- In the Spotlight Section -->
+    <section class="spotlight" id="spotlight">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Press &amp; Recognition</div>
+                <h2>In the Spotlight</h2>
+                <p>Press, partners, and pitch wins from the Bidblox journey so far</p>
+            </div>
+
+            <div class="spotlight-logos">
+                <img src="assets/media/betakit.png" alt="BetaKit" style="height: 25px; width: 90px;">
+                <img src="assets/media/amii.png" alt="AMII" style="height: 45px;">
+                <img src="assets/media/upperBound.png" alt="Upper Bound" style="height: 35px;">
+                <img src="assets/media/educationNews.png" alt="Education News" style="height: 35px;">
+                <img src="assets/media/Tie.png" alt="TiE Toronto" style="height: 35px;">
+                <img src="assets/media/ExpandNorthStar.png" alt="Expand North Star" style="height: 45px;">
+                <img src="assets/media/proptechCollective.png" alt="Proptech Collective" style="height: 25px;">
+                <img src="assets/media/artemisFund.png" alt="The Artemis Fund" style="height: 25px;">
+                <img src="assets/media/StartupEcosystem.png" alt="StartupEcosystem.ca" style="height: 35px;">
+                <img src="assets/media/hustleFund.png" alt="Hustle Fund" style="height: 45px;">
+                <img src="assets/media/startupGrind.png" alt="Startup Grind" style="height: 25px;">
+                <img src="assets/media/buildingTransformation.png" alt="Building Transformation Innovation Award" style="height: 25px;">
+                <img src="assets/media/disruptionMagazine.png" alt="Disruption Magazine" style="height: 35px;">
+            </div>
+
+            <div class="spotlight-grid">
+                <a href="https://betakit.com/markham-tech-bidblox-ai/" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">BetaKit</span>
+                    <h4>Markham tech startup Bidblox is using AI to transform construction bidding</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://www.amii.ca/updates-insights/upper-bound-2025-shows-how-ai-is-solving-the-biggest-challenges-of-the-construction-industry" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">AMII · Upper Bound 2025</span>
+                    <h4>How AI is solving the biggest challenges of the construction industry</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://educationnewscanada.com/article/education/level/university/1/1133115/yspace-innovation-takes-global-stage-at-world-s-largest-tech-event.html" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">Education News Canada</span>
+                    <h4>YSpace innovation takes global stage at world's largest tech event</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://tiesv.ai/lisa-mohapatra-co-founder-ceo-bidblox-she-pitches-she-wins-tiecon-2025/" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">TiE Silicon Valley</span>
+                    <h4>Lisa Mohapatra, Co-Founder &amp; CEO of Bidblox — She Pitches, She Wins, TiEcon 2025</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://www.yorku.ca/yfile/2025/03/28/yspace-innovation-takes-global-stage-at-worlds-largest-tech-event/" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">YFile · York University</span>
+                    <h4>YSpace innovation takes global stage at world's largest tech event</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://www.proptechcollective.com/intelligence" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">Proptech Collective</span>
+                    <h4>Featured in the Proptech Collective intelligence roundup</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://theartemisfund.medium.com/the-future-of-construction-whats-next-for-a-12t-industry-4af1ae489e2b" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">The Artemis Fund</span>
+                    <h4>The future of construction: what's next for a $12T industry</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://www.startupecosystem.ca/news/markhams-tech-ecosystem-empowers-bidblox-ai-to-transform-construction-industry/" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">StartupEcosystem.ca</span>
+                    <h4>Markham's tech ecosystem empowers Bidblox AI to transform construction industry</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://www.linkedin.com/posts/activity-7365810753620094976-cWoL" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">LinkedIn</span>
+                    <h4>Community spotlight and update on Bidblox's progress</h4>
+                    <span class="spotlight-link-label">View the post →</span>
+                </a>
+                <a href="https://www.linkedin.com/posts/tietoronto_tiewomen-womenentrepreneurs-toronto-activity-7375893242694946816-eVGJ" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">TiE Toronto · LinkedIn</span>
+                    <h4>#TiEWomen — celebrating women entrepreneurs in Toronto</h4>
+                    <span class="spotlight-link-label">View the post →</span>
+                </a>
+                <a href="https://www.startupgrind.com/colorado-springs/" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">Startup Grind</span>
+                    <h4>Featured at Startup Grind Colorado Springs</h4>
+                    <span class="spotlight-link-label">View details →</span>
+                </a>
+                <a href="https://www.buildingtransformations.org/awards-categories/entrepreneurship-startups" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">Building Transformations</span>
+                    <h4>Entrepreneurship &amp; Startups Award nominee</h4>
+                    <span class="spotlight-link-label">View the award →</span>
+                </a>
+                <a href="https://www.linkedin.com/pulse/tech-roundup-83-hectocorns-nuclear-ai-death-vc-joanne-fedeyko-95wnc/" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">Disruption Magazine</span>
+                    <h4>Tech Roundup #83: Hectocorns, nuclear AI, and the death of VC</h4>
+                    <span class="spotlight-link-label">Read the article →</span>
+                </a>
+                <a href="https://www.linkedin.com/posts/activity-7300560368165105665-Tjst" target="_blank" rel="noopener" class="spotlight-card">
+                    <span class="spotlight-source">Expand North Star</span>
+                    <h4>Winner — GITEX Expand North Star Toronto Roadshow</h4>
+                    <span class="spotlight-link-label">View the post →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What our clients say</h2>
+                <p>General contractors and estimators who use Bidblox to bid faster and with more confidence</p>
+            </div>
+        </div>
+
+        <div class="testimonial-track-wrap">
+            <div class="testimonial-track">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">Bidblox changed how our preconstruction team works. We're issuing trade packages faster, with more confidence, and spending less time buried in documents.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">G</div>
+                        <div>
+                            <div class="testimonial-name">Dr. Kenne Currie, Head of Construction</div>
+                            <div class="testimonial-company">Ginosko Construction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">One of the fun things I've been doing recently is working with the team at Bidblox to help refine their product offering. Bidblox provides intelligent bid mining to distill complex RFPs into clear, actionable tasks, automates repetitive tasks to free up teams, and surfaces winning strategies backed by data, not guesswork.
+                                    I've used it myself and I can say that this tool supercharges the proposal process and helps develop proposals that are designed to win - not just compete.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Andrew Schagen, President</div>
+                            <div class="testimonial-company">Leverde</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">Bidding projects is a time consuming and expensive part of every contractors business.	The Bidblox platform has the potential to reduce the time spent by estimating staff in putting together their bids through their bid leveling feature and other helpful tools.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">GG</div>
+                        <div>
+                            <div class="testimonial-name">Paul Osborne, VP of Estimating</div>
+                            <div class="testimonial-company">Great Gulf</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">As estimators, the speed matters most. Bidblox gives us a clean scope breakdown in minutes instead of days.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">CE</div>
+                        <div>
+                            <div class="testimonial-name">Carlos Estimating</div>
+                            <div class="testimonial-company">Estimating Services</div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- Duplicate set — required for seamless infinite-loop animation. Keep in sync with the set above. -->
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">Bidblox changed how our preconstruction team works. We're issuing trade packages faster, with more confidence, and spending less time buried in documents.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">G</div>
+                        <div>
+                            <div class="testimonial-name">Dr. Kenne Currie, Head of Construction</div>
+                            <div class="testimonial-company">Ginosko Construction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">One of the fun things I've been doing recently is working with the team at Bidblox to help refine their product offering. Bidblox provides intelligent bid mining to distill complex RFPs into clear, actionable tasks, automates repetitive tasks to free up teams, and surfaces winning strategies backed by data, not guesswork.
+                                    I've used it myself and I can say that this tool supercharges the proposal process and helps develop proposals that are designed to win - not just compete.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Andrew Schagen, President</div>
+                            <div class="testimonial-company">Leverde</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">Bidding projects is a time consuming and expensive part of every contractors business.	The Bidblox platform has the potential to reduce the time spent by estimating staff in putting together their bids through their bid leveling feature and other helpful tools.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">GG</div>
+                        <div>
+                            <div class="testimonial-name">Paul Osborne, VP of Estimating</div>
+                            <div class="testimonial-company">Great Gulf</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="testimonial-card" aria-hidden="true">
+                    <div class="testimonial-quote-mark">&ldquo;</div>
+                    <p class="quote">As estimators, the speed matters most. Bidblox gives us a clean scope breakdown in minutes instead of days.</p>
+                    <div class="testimonial-attribution">
+                        <div class="testimonial-avatar">CE</div>
+                        <div>
+                            <div class="testimonial-name">Carlos Estimating</div>
+                            <div class="testimonial-company">Estimating Services</div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
@@ -1214,25 +1829,83 @@
                 <p>See how Bidblox transforms your bid process in a 15-minute demo</p>
                 <div class="hero-actions">
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
-                    <a href="mailto:lisa@bidblox.ai">Try It Free →</a>
+                    <!-- <a href="mailto:lisa@bidblox.ai">Try It Free →</a> -->
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Trust Section -->
-    <section class="trust-section">
+    <!-- FAQ Section -->
+    <!-- <section class="faq-section" id="faq">
         <div class="container">
-            <div class="trust-content">
-                <div class="trust-label">Backed by leading construction tech investors</div>
-                <div class="trust-logos">
-                    <img src="assets/img/Antler_logo.svg" alt="Antler" style="height: 32px;">
-                    <img src="assets/img/venture_lab_crop.png" alt="Venture Lab" style="height: 32px;">
-                    <img src="assets/img/OCI-logo-English.webp" alt="OCI" style="height: 32px;">
+            <div class="section-header">
+                <h2>Frequently asked questions</h2>
+                <p>Everything you need to know about getting started with Bidblox</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        What file types can I upload?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Bidblox accepts project specs and drawings in standard formats including PDF and common CAD export formats. If you have a file type you don't see supported, reach out and we'll let you know.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        How long does spec extraction take?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most projects are processed in under an hour. Extraction time scales with document size, but even large multi-hundred-page spec sets are typically ready quickly.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Can Bidblox isolate just my trade package?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes. If you're bidding a partial scope, Bidblox identifies only the sections of the spec relevant to your trade so you're not reading material that doesn't apply to your bid.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        How does bid leveling work?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Once your scope is extracted, you can upload sub-contractor bids and Bidblox will compare them against that scope side-by-side, flagging gaps, overlaps, and inconsistencies between quotes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Is my project data secure?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes. Your data is encrypted in transit and at rest, and is never used to train public AI models. See our <a href="trust.html">Trust Center</a> for full details on our security and data practices.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        How do I get started?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The fastest way is to <a href="https://calendly.com/lisa-bidblox/30min">schedule a demo</a> with our team. We'll walk through your workflow and show you Bidblox on a real project.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Footer -->
     <footer class="footer">
@@ -1252,13 +1925,23 @@
                     <p class="footer-description">
                         Transforming the construction bidding process with AI-powered scope analysis and intelligent bid leveling. We assist businesses in responding to calls for tenders and requests for proposals (RFPs).
                     </p>
-                    <p class="footer-patent">Patent pending technology</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/Bidblox/" target="_blank" rel="noopener" aria-label="Bidblox on Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.91h-2.33V22c4.78-.78 8.44-4.94 8.44-9.94z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/bidblox" target="_blank" rel="noopener" aria-label="Bidblox on Instagram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.02-3.58.07-4.85c.15-3.23 1.67-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.35.2-6.78 2.62-6.98 6.98C0 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.35 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bidblox/" target="_blank" rel="noopener" aria-label="Bidblox on LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56z"/></svg>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Product</h4>
                     <div class="footer-links">
-                        <a href="#features">Features</a>
+                        <a href="product.html">Features</a>
                         <a href="#integrations">Integrations</a>
                         <a href="https://calendly.com/lisa-bidblox/30min">Request Demo</a>
                         <a href="mailto:lisa@bidblox.ai">Free Trial</a>
@@ -1268,6 +1951,8 @@
                 <div class="footer-section">
                     <h4>Company</h4>
                     <div class="footer-links">
+                        <!-- <a href="#faq">FAQ</a> -->
+                        <a href="trust.html">Trust Center</a>
                         <a href="mailto:lisa@bidblox.ai">Contact Us</a>
                         <a href="https://demo.bidblox.ai">Sign In</a>
                     </div>
@@ -1277,7 +1962,7 @@
             <div class="footer-bottom">
                 <div class="footer-copyright">© <span id="copyright-year"></span> Bidblox. All rights reserved.</div>
                 <div class="footer-legal">
-                    <a href="/privacy">Privacy Policy</a>
+                    <a href="https://www.bidblox.ai/privacy">Privacy Policy</a>
                     <a href="https://demo.bidblox.ai/terms">Terms of Service</a>
                 </div>
             </div>
@@ -1286,6 +1971,15 @@
 
     <script>
         document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        function toggleFaq(button) {
+            const item = button.closest('.faq-item');
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+            if (!wasOpen) {
+                item.classList.add('open');
+            }
+        }
     </script>
 </body>
 </html>
