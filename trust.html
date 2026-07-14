@@ -130,6 +130,20 @@
             transform: translateY(-1px);
         }
 
+        .btn-secondary {
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
         /* Hero */
         .trust-hero {
             padding: 160px 0 56px;
@@ -340,6 +354,7 @@
         }
 
         @media (max-width: 768px) {
+            .btn-secondary { display: none; }
             .trust-hero {
                 padding: 120px 0 40px;
             }
@@ -504,6 +519,7 @@
             </div>
 
             <div class="nav-buttons">
+                <a href="https://demo.bidblox.ai" class="btn-secondary">Sign In</a>
                 <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Request Demo</a>
             </div>
         </div>
