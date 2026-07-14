@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Center - Bidblox</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Crect width='30' height='30' rx='6' fill='%231a1a1a'/%3E%3Crect x='6' y='17' width='8' height='8' rx='2' fill='white'/%3E%3Crect x='16' y='17' width='8' height='8' rx='2' fill='white'/%3E%3Crect x='16' y='7' width='8' height='8' rx='2' fill='white'/%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-padding-top: 90px;
+            scrollbar-gutter: stable;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            background: #FFFFFF;
+            color: #1a1a1a;
+        }
+
+        :root {
+            --primary: #805B87;
+            --primary-light: #9d7ba5;
+            --accent: #d4955a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6B7280;
+            --border: #e5e7eb;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Nav (shared) */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--text-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        @media (min-width: 900px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #000;
+            transform: translateY(-1px);
+        }
+
+        /* Hero */
+        .trust-hero {
+            padding: 160px 0 56px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .trust-hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        .trust-hero p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Body layout */
+        .trust-body {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 64px 24px 100px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .trust-toc {
+            display: none;
+        }
+
+        .trust-toc h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .trust-toc ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trust-toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .trust-toc a:hover {
+            color: var(--text-primary);
+        }
+
+        @media (min-width: 768px) {
+            .trust-body {
+                grid-template-columns: 200px 1fr;
+            }
+            .trust-toc {
+                display: block;
+                position: sticky;
+                top: 110px;
+            }
+        }
+
+        .trust-content {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .trust-block {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px;
+        }
+
+        .trust-block-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--text-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 18px;
+        }
+
+        .trust-block h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .trust-block > p.block-intro {
+            color: var(--text-secondary);
+            font-size: 14.5px;
+            margin-bottom: 18px;
+            line-height: 1.7;
+        }
+
+        .trust-block ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trust-block li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-primary);
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .check-icon {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(128, 91, 135, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .roadmap-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 14.5px;
+            color: var(--text-primary);
+        }
+
+        .roadmap-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+
+        .status-pill.in-prep {
+            background: rgba(212, 149, 90, 0.1);
+            color: var(--accent);
+        }
+
+        .status-pill.planned {
+            background: #f5f5f5;
+            color: var(--text-secondary);
+        }
+
+        .status-pill.in-dev {
+            background: rgba(128, 91, 135, 0.1);
+            color: var(--primary);
+        }
+
+        .legal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .legal-links a {
+            color: var(--text-primary);
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-size: 14.5px;
+        }
+
+        .legal-links a:hover {
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            .trust-hero {
+                padding: 120px 0 40px;
+            }
+            .trust-body {
+                padding: 48px 20px 70px;
+            }
+            .trust-block {
+                padding: 26px;
+            }
+            .roadmap-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        /* Footer (shared) */
+        .footer {
+            background: #1a1a1a;
+            color: #9ca3af;
+            padding: 60px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand { max-width: 400px; }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border-radius: 6px;
+        }
+
+        .footer-logo span {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            transition: all 0.2s;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-section h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            font-size: 13px;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover { color: #9ca3af; }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-mark">
+                    <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+                        <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
+                        <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
+                        <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
+                    </svg>
+                </div>
+                <span style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 17px;"><span style="color: var(--primary);">B</span>id<span style="color: var(--primary);">b</span>lox</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="product.html">Product</a>
+                <!-- <a href="case-study.html">Case Study</a> -->
+                <a href="trust.html">Trust Center</a>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Request Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="trust-hero">
+        <div class="container">
+            <div class="section-eyebrow">Trust Center</div>
+            <h1>Security, privacy, and data protection at Bidblox</h1>
+            <p>Bidblox is built with enterprise-grade security practices to ensure customer data and project information remain protected, private, and fully under customer control.</p>
+        </div>
+    </section>
+
+    <!-- Body -->
+    <div class="trust-body">
+        <aside class="trust-toc">
+            <h4>On this page</h4>
+            <ul>
+                <li><a href="#security-overview">Security Overview</a></li>
+                <li><a href="#data-policy">Customer Data &amp; AI Policy</a></li>
+                <li><a href="#infrastructure">Infrastructure &amp; Hosting</a></li>
+                <li><a href="#access-controls">Access Controls</a></li>
+                <li><a href="#privacy">Privacy &amp; Legal</a></li>
+                <li><a href="#roadmap">Security &amp; Compliance Roadmap</a></li>
+            </ul>
+        </aside>
+
+        <div class="trust-content">
+            <section class="trust-block" id="security-overview">
+                <div class="trust-block-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
+                </div>
+                <h2>Security Overview</h2>
+                <ul>
+                    <li><span class="check-icon">✓</span> Data encrypted in transit (TLS 1.2+)</li>
+                    <li><span class="check-icon">✓</span> Data encrypted at rest</li>
+                    <li><span class="check-icon">✓</span> Role-based access control (RBAC)</li>
+                    <li><span class="check-icon">✓</span> Audit logging across systems</li>
+                    <li><span class="check-icon">✓</span> Continuous monitoring and security alerts</li>
+                </ul>
+            </section>
+
+            <section class="trust-block" id="data-policy">
+                <div class="trust-block-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12c4 0 8-1.34 8-4s-4-4-8-4-8 1.34-8 4 4 4 8 4zM4 8v8c0 2.66 4 4 8 4s8-1.34 8-4V8M4 12v0"/></svg>
+                </div>
+                <h2>Customer Data &amp; AI Policy</h2>
+                <p class="block-intro">Customer data remains fully owned by the customer. Bidblox is designed to ensure complete confidentiality and control over all uploaded project information.</p>
+                <ul>
+                    <li><span class="check-icon">✓</span> We do not sell customer data</li>
+                    <li><span class="check-icon">✓</span> We do not share customer data with third parties except to provide the service</li>
+                    <li><span class="check-icon">✓</span> Customer data is not used to train public AI models</li>
+                    <li><span class="check-icon">✓</span> All project files remain private to the customer environment</li>
+                </ul>
+            </section>
+
+            <section class="trust-block" id="infrastructure">
+                <div class="trust-block-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="6" rx="1"/><rect x="2" y="15" width="20" height="6" rx="1"/><line x1="6" y1="6" x2="6" y2="6"/><line x1="6" y1="18" x2="6" y2="18"/></svg>
+                </div>
+                <h2>Infrastructure &amp; Hosting</h2>
+                <p class="block-intro">Bidblox runs on Google Cloud Platform (GCP), leveraging secure, scalable, enterprise-grade cloud infrastructure.</p>
+                <ul>
+                    <li><span class="check-icon">✓</span> Hosted on Google Cloud Platform (GCP)</li>
+                    <li><span class="check-icon">✓</span> Data stored in secure, access-controlled cloud environments</li>
+                    <li><span class="check-icon">✓</span> Encryption in transit and at rest</li>
+                    <li><span class="check-icon">✓</span> Role-based access controls (RBAC)</li>
+                    <li><span class="check-icon">✓</span> Continuous monitoring and automated backups</li>
+                    <li><span class="check-icon">✓</span> Built-in cloud security and DDoS protection</li>
+                </ul>
+            </section>
+
+            <section class="trust-block" id="access-controls">
+                <div class="trust-block-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+                <h2>Access Controls</h2>
+                <ul>
+                    <li><span class="check-icon">✓</span> Role-based permissions across the platform</li>
+                    <li><span class="check-icon">✓</span> Restricted production system access</li>
+                    <li><span class="check-icon">✓</span> Secure authentication mechanisms</li>
+                    <li><span class="check-icon">✓</span> Activity logging for sensitive actions</li>
+                </ul>
+            </section>
+
+            <section class="trust-block" id="privacy">
+                <div class="trust-block-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <h2>Privacy &amp; Legal</h2>
+                <div class="legal-links">
+                    <!-- TODO: replace # with the live Privacy Policy and Terms of Service URLs -->
+                    <a href="/privacy">Privacy Policy →</a>
+                    <a href="https://demo.bidblox.ai/terms">Terms of Service →</a>
+                </div>
+            </section>
+
+            <section class="trust-block" id="roadmap">
+                <div class="trust-block-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/></svg>
+                </div>
+                <h2>Security &amp; Compliance Roadmap</h2>
+                <p class="block-intro">We are actively working toward enterprise-grade security and compliance standards.</p>
+                <div>
+                    <div class="roadmap-item">
+                        <span>SOC 2 Type I</span>
+                        <span class="status-pill in-prep">In preparation</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span>SOC 2 Type II</span>
+                        <span class="status-pill planned">Planned</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span>SSO / SAML authentication</span>
+                        <span class="status-pill in-dev">In development</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span>Enhanced audit logging and access controls</span>
+                        <span class="status-pill in-dev">In development</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container" style="max-width: 1200px;">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-mark">
+                            <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+                                <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
+                            </svg>
+                        </div>
+                        <span style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 17px;"><span style="color: var(--primary);">B</span>id<span style="color: var(--primary);">b</span>lox</span>
+                    </div>
+                    <p class="footer-description">
+                        Transforming the construction bidding process with AI-powered scope analysis and intelligent bid leveling. We assist businesses in responding to calls for tenders and requests for proposals (RFPs).
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/Bidblox/" target="_blank" rel="noopener" aria-label="Bidblox on Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.91h-2.33V22c4.78-.78 8.44-4.94 8.44-9.94z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/bidblox" target="_blank" rel="noopener" aria-label="Bidblox on Instagram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.02-3.58.07-4.85c.15-3.23 1.67-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.35.2-6.78 2.62-6.98 6.98C0 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.35 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bidblox/" target="_blank" rel="noopener" aria-label="Bidblox on LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <div class="footer-links">
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#integrations">Integrations</a>
+                        <a href="https://calendly.com/lisa-bidblox/30min">Request Demo</a>
+                        <a href="mailto:lisa@bidblox.ai">Free Trial</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <div class="footer-links">
+                        <a href="index.html#testimonials">Testimonials</a>
+                        <a href="index.html#faq">FAQ</a>
+                        <a href="trust.html">Trust Center</a>
+                        <a href="mailto:lisa@bidblox.ai">Contact Us</a>
+                        <a href="https://demo.bidblox.ai">Sign In</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">© <span id="copyright-year"></span> Bidblox. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="trust.html">Trust Center</a>
+                    <a href="https://www.bidblox.ai/privacy">Privacy Policy</a>
+                    <a href="https://demo.bidblox.ai/terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

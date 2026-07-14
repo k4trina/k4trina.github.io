@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product - Bidblox</title>
+    <meta name="description" content="Meet the Bidblox agent: how it reads specs, drawings, and emails, reasons over a construction knowledge graph, and turns raw documents into scopes, pricing, and materials you can trust.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Crect width='30' height='30' rx='6' fill='%231a1a1a'/%3E%3Crect x='6' y='17' width='8' height='8' rx='2' fill='white'/%3E%3Crect x='16' y='17' width='8' height='8' rx='2' fill='white'/%3E%3Crect x='16' y='7' width='8' height='8' rx='2' fill='white'/%3E%3C/svg%3E">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-padding-top: 90px;
+            scrollbar-gutter: stable;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            background: #FFFFFF;
+            color: #1a1a1a;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(128, 91, 135, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 149, 90, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        :root {
+            --primary: #805B87;
+            --primary-light: #9d7ba5;
+            --accent: #d4955a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6B7280;
+            --border: #e5e7eb;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+        }
+        
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--text-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .btn-primary {
+            background: var(--text-primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #000;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+        
+        .nav-links {
+            display: none;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        @media (min-width: 900px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero h1 .gradient-text {
+            color: var(--primary);
+        }
+        
+        .hero .subtitle {
+            font-size: clamp(18px, 2.5vw, 21px);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+        
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+            justify-content: center;
+        }
+
+        .hero-actions a:not(.btn-primary) {
+            color: var(--text-primary);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .hero-actions a:not(.btn-primary):hover {
+            opacity: 0.6;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        /* Dashboard Preview */
+        .dashboard-preview {
+            margin: 80px auto 100px;
+            max-width: 1400px;
+        }
+        
+        .dashboard-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dashboard-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fafafa;
+        }
+        
+        .dashboard-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .project-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: rgba(212, 149, 90, 0.1);
+            border: 1px solid rgba(212, 149, 90, 0.2);
+            border-radius: 4px;
+            color: var(--accent);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        
+        .dashboard-toolbar {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .toolbar-btn {
+            padding: 8px 14px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .toolbar-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+        
+        .dashboard-body {
+            padding: 0;
+            overflow-x: auto;
+            background: white;
+        }
+        
+        .spreadsheet-container {
+            min-width: 1200px;
+        }
+        
+        .spreadsheet-header {
+            display: grid;
+            grid-template-columns: 40px 350px repeat(3, 1fr);
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .header-cell {
+            padding: 16px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 4px;
+        }
+        
+        .header-cell:first-child {
+            background: #f5f5f5;
+        }
+        
+        .header-cell:nth-child(2) {
+            align-items: flex-start;
+            text-align: left;
+        }
+        
+        .contractor-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        
+        .contractor-total {
+            font-size: 15px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        
+        .low-bid {
+            color: #059669;
+        }
+        
+        .spreadsheet-row {
+            display: grid;
+            grid-template-columns: 40px 350px repeat(3, 1fr);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.15s;
+        }
+        
+        .spreadsheet-row:hover {
+            background: #fafafa;
+        }
+        
+        .row-number {
+            padding: 12px 8px;
+            font-size: 11px;
+            color: #9ca3af;
+            text-align: center;
+            background: #fafafa;
+            border-right: 1px solid var(--border);
+            font-weight: 500;
+        }
+        
+        .row-cell {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-primary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+        }
+        
+        .item-name {
+            font-weight: 500;
+        }
+        
+        .item-indent {
+            padding-left: 24px;
+        }
+        
+        .category-row {
+            background: #fafafa;
+        }
+        
+        .category-row .row-cell {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        
+        .price-cell {
+            justify-content: flex-end;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+        
+        .lowest-price {
+            color: #059669;
+        }
+        
+        .highest-price {
+            color: #dc2626;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        
+        .section-header h2 {
+            font-size: clamp(36px, 4vw, 48px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Integrations Section */
+        .integrations {
+            padding: 100px 0;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .integrations-showcase {
+            position: relative;
+            min-height: 600px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .central-hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hub-icon {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+        }
+
+        .hub-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .hub-logo .logo-mark {
+            width: 56px;
+            height: 56px;
+            background: var(--text-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hub-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(128, 91, 135, 0.2);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .ring-1 { width: 80px; height: 80px; animation-delay: 0s; }
+        .ring-2 { width: 100px; height: 100px; animation-delay: 1s; }
+        .ring-3 { width: 120px; height: 120px; animation-delay: 2s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .hub-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .integration-category {
+            position: absolute;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .integration-category:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .category-construction { top: 40px; left: 40px; }
+        .category-bidding { top: 40px; right: 40px; }
+        .category-productivity { bottom: 40px; left: 40px; }
+        .category-cloud { bottom: 40px; right: 40px; }
+
+        .category-header h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .category-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .integration-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: #fafafa;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .integration-item:hover { background: #f0f0f0; }
+
+        .item-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .integration-item span {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .integrations { padding: 60px 0; }
+            .integrations-showcase { min-height: 1000px; }
+            .integration-category {
+                position: relative;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                margin-bottom: 20px;
+            }
+            .central-hub {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin-bottom: 40px;
+            }
+            .connection-lines { display: none; }
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .features-grid-simple {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-card-simple {
+            text-align: center;
+            padding: 0;
+        }
+        
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            background: rgba(128, 91, 135, 0.08);
+            border-radius: 12px;
+        }
+        
+        .feature-card-simple h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        
+        .feature-card-simple p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 15px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .features { padding: 60px 0; }
+            .features-grid-simple { grid-template-columns: 1fr; gap: 48px; }
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: #fafafa;
+        }
+        
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid var(--border);
+        }
+        
+        .cta-box h2 {
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        .cta-box p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+        
+        .trust-content { text-align: center; }
+        
+        .trust-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            filter: grayscale(1);
+            opacity: 0.4;
+        }
+
+        .trust-logos span {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* ===== In the Spotlight ===== */
+        .spotlight {
+            padding: 100px 0;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .spotlight-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+        }
+
+        .spotlight-logos span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .spotlight-logos span:hover {
+            opacity: 1;
+            color: var(--text-primary);
+        }
+
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 16px;
+        }
+
+        .spotlight-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .spotlight-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .spotlight-source {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+        }
+
+        .spotlight-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        .spotlight-link-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: auto;
+        }
+
+        /* ===== Testimonials ===== */
+        .testimonials-section {
+            padding: 100px 0;
+            background: white;
+            overflow: hidden;
+        }
+
+        .testimonial-track-wrap {
+            position: relative;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent 0, black 64px, black calc(100% - 64px), transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0, black 64px, black calc(100% - 64px), transparent 100%);
+        }
+
+        .testimonial-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: testimonial-scroll 36s linear infinite;
+        }
+
+        .testimonial-track-wrap:hover .testimonial-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes testimonial-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .testimonial-track {
+                animation: none;
+            }
+        }
+
+        .testimonial-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 28px 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 360px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+            transform: translateY(-3px);
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+
+        .testimonial-quote-mark {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 64px;
+            line-height: 1;
+            color: var(--primary-light);
+            opacity: 0.35;
+            font-weight: 700;
+            height: 36px;
+        }
+
+        .testimonial-card p.quote {
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.65;
+            flex-grow: 1;
+        }
+
+        .testimonial-attribution {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .testimonial-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--text-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .testimonial-company {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .testimonial-card {
+                width: 300px;
+            }
+        }
+
+        /* ===== Case Study ===== */
+        .case-study-section {
+            padding: 100px 0;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .case-study-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .case-study-visual {
+            background: var(--text-primary);
+            padding: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 24px;
+            color: white;
+        }
+
+        .case-study-stat .num {
+            font-size: 30px;
+            font-weight: 600;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .case-study-stat .label {
+            font-size: 12px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+
+        .case-study-content {
+            padding: 44px;
+        }
+
+        .case-study-tag {
+            display: inline-block;
+            background: rgba(212, 149, 90, 0.1);
+            border: 1px solid rgba(212, 149, 90, 0.2);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .case-study-content h3 {
+            font-size: 23px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .case-study-content p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .case-study-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-size: 14px;
+        }
+
+        .case-study-link:hover {
+            opacity: 0.6;
+        }
+
+        @media (min-width: 768px) {
+            .case-study-inner {
+                grid-template-columns: 0.85fr 1fr;
+            }
+            .case-study-stat .num {
+                font-size: 34px;
+            }
+        }
+
+        /* ===== Product Steps ===== */
+        .product-steps-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .product-steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-step {
+            display: block;
+            padding: 28px 32px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .product-step:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .product-step-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 8px;
+        }
+
+        .product-step h3 {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .product-step p {
+            color: var(--text-secondary);
+            font-size: 14.5px;
+            line-height: 1.65;
+            max-width: 600px;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section {
+            padding: 100px 0;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .faq-list {
+            max-width: 760px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 18px 22px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-family: inherit;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 0 22px 18px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .faq-answer p a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* ===== Footer social icons ===== */
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            transition: all 0.2s;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile */
+        .footer {
+            background: #1a1a1a;
+            color: #9ca3af;
+            padding: 60px 0 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-brand { max-width: 400px; }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border-radius: 6px;
+        }
+        
+        .footer-logo span {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .footer-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+        
+        .footer-patent {
+            font-size: 12px;
+            color: #6b7280;
+            font-style: italic;
+        }
+        
+        .footer-section h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover { color: white; }
+        
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .footer-legal a {
+            font-size: 13px;
+            color: #6b7280;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-legal a:hover { color: #9ca3af; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .nav-container { padding: 16px 20px; }
+            .btn-secondary { display: none; }
+            .hero { padding: 120px 0 60px; }
+            .dashboard-header {
+                padding: 16px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .dashboard-toolbar { width: 100%; }
+            .toolbar-btn { flex: 1; text-align: center; }
+            .spreadsheet-container { min-width: 900px; }
+            .spreadsheet-header { grid-template-columns: 40px 300px repeat(3, 180px); }
+            .spreadsheet-row { grid-template-columns: 40px 300px repeat(3, 180px); }
+            .cta-box { padding: 48px 28px; }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+            .spotlight, .testimonials-section, .case-study-section, .product-steps-section, .faq-section {
+                padding: 60px 0;
+            }
+
+            .testimonial-track {
+                gap: 16px;
+                animation-duration: 28s;
+            }
+
+            .testimonial-track-wrap {
+                mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+            }
+
+            .case-study-content, .case-study-visual {
+                padding: 28px;
+            }
+
+            .product-step {
+                padding: 22px 24px;
+            }
+        }
+    
+        /* ===== Product page: page hero ===== */
+        .product-hero {
+            padding: 160px 0 80px;
+            text-align: center;
+        }
+
+        .product-hero .container {
+            max-width: 780px;
+        }
+
+        .product-hero h1 {
+            font-size: clamp(38px, 5vw, 56px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .product-hero p {
+            font-size: clamp(17px, 2vw, 19px);
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        /* ===== Agent Flow Diagram ===== */
+        .agent-flow {
+            padding: 40px 0 110px;
+            background: white;
+        }
+
+        .flow-showcase {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(180deg, #fcfbfd 0%, #fafafa 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 28px;
+        }
+
+        .flow-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .flow-col-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+
+        .flow-col.inputs .flow-col-label { color: var(--primary); }
+        .flow-col.outputs .flow-col-label { color: var(--accent); }
+
+        .flow-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 13px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: all 0.25s ease;
+            width: 100%;
+        }
+
+        .flow-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .flow-card .item-icon {
+            border: none;
+            border-radius: 8px;
+        }
+
+        .flow-col.inputs .flow-card .item-icon {
+            background: rgba(128, 91, 135, 0.1);
+            color: var(--primary);
+        }
+
+        .flow-col.outputs .flow-card .item-icon {
+            background: rgba(212, 149, 90, 0.12);
+            color: var(--accent);
+        }
+
+        .flow-card span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .flow-link { display: none; }
+        .flow-link svg { display: block; }
+
+        .flow-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .flow-hub {
+            position: relative;
+            width: 132px;
+            height: 132px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-hub-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 76px;
+            height: 76px;
+            background: var(--text-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 2;
+        }
+
+        .flow-hub-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(128, 91, 135, 0.2);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .flow-hub-ring.r1 { width: 96px; height: 96px; animation-delay: 0s; }
+        .flow-hub-ring.r2 { width: 114px; height: 114px; animation-delay: 1s; }
+        .flow-hub-ring.r3 { width: 132px; height: 132px; animation-delay: 2s; }
+
+        .flow-hub-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        @media (min-width: 900px) {
+            .flow-showcase {
+                display: grid;
+                grid-template-columns: 1fr 76px auto 76px 1fr;
+                align-items: center;
+                gap: 0;
+                padding: 44px 40px;
+            }
+
+            .flow-col { max-width: none; }
+
+            .flow-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* ===== Knowledge Graph Section ===== */
+        .knowledge-graph {
+            padding: 100px 0;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .kg-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .kg-copy h2 {
+            font-size: clamp(28px, 3.4vw, 36px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .kg-copy p {
+            color: var(--text-secondary);
+            font-size: 15.5px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .kg-copy ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .kg-copy li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-primary);
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .kg-check {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(128, 91, 135, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .kg-visual {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .kg-node-label {
+            font-size: 10.5px;
+            font-weight: 600;
+            fill: var(--text-primary);
+        }
+
+        .kg-node-sublabel {
+            font-size: 9px;
+            fill: var(--text-secondary);
+        }
+
+        @media (min-width: 900px) {
+            .kg-layout {
+                grid-template-columns: 0.95fr 1.05fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kg-visual {
+                overflow-x: auto;
+            }
+            .kg-visual svg {
+                width: 520px;
+                max-width: none;
+                flex-shrink: 0;
+            }
+        }
+
+        /* ===== Understanding / Trust Section ===== */
+        .understanding-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .understanding-intro {
+            max-width: 700px;
+            margin: 0 auto 56px;
+            text-align: center;
+        }
+
+        .understanding-intro h2 {
+            font-size: clamp(30px, 3.6vw, 40px);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .understanding-intro p {
+            color: var(--text-secondary);
+            font-size: 16.5px;
+            line-height: 1.7;
+        }
+
+        .reasoning-rail {
+            max-width: 880px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .rail-track {
+            display: none;
+        }
+
+        .rail-dot {
+            position: relative;
+        }
+
+        .rail-connector {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background: var(--border);
+        }
+
+        .rail-step {
+            position: relative;
+            display: flex;
+            gap: 24px;
+            padding-bottom: 56px;
+            z-index: 1;
+        }
+
+        .rail-step:last-child {
+            padding-bottom: 0;
+        }
+
+        .rail-dot {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 6px white;
+        }
+
+        .rail-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 4px;
+        }
+
+        .rail-text h3 {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .rail-text p {
+            color: var(--text-secondary);
+            font-size: 14.5px;
+            line-height: 1.65;
+            max-width: 480px;
+        }
+
+        .rail-artifact {
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .rail-artifact svg {
+            display: block;
+        }
+
+        @media (min-width: 700px) {
+            .rail-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 28px;
+            }
+
+            .rail-text {
+                flex: 1;
+            }
+
+            .rail-artifact {
+                flex-shrink: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .rail-track { left: 15px; }
+            .rail-dot { width: 32px; height: 32px; font-size: 13px; }
+            .rail-step { gap: 16px; padding-bottom: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .product-hero { padding: 120px 0 56px; }
+            .agent-flow { padding: 24px 0 70px; }
+            .knowledge-graph, .understanding-section { padding: 60px 0; }
+            .flow-hub-core { width: 64px; height: 64px; }
+            .flow-hub { width: 110px; height: 110px; }
+            .flow-hub-ring.r1 { width: 80px; height: 80px; }
+            .flow-hub-ring.r2 { width: 96px; height: 96px; }
+            .flow-hub-ring.r3 { width: 110px; height: 110px; }
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-mark">
+                    <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+                        <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
+                        <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
+                        <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
+                    </svg>
+                </div>
+                <span style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 17px;"><span style="color: var(--primary);">B</span>id<span style="color: var(--primary);">b</span>lox</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="product.html" class="active">Product</a>
+                <!-- <a href="case-study.html">Case Study</a> -->
+                <a href="trust.html">Trust Center</a>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="https://demo.bidblox.ai" class="btn-secondary">Sign In</a>
+                <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Request Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Hero -->
+    <section class="product-hero">
+        <div class="container">
+            <div class="section-eyebrow" style="text-align: center;">The Bidblox Agent</div>
+            <h1>A coworker who reads everything, forgets nothing, and shows its work</h1>
+            <p>Specs, drawings, and emails go in. Organized scopes, pricing, and materials come out — every number traceable to the source.</p>
+        </div>
+    </section>
+
+    <!-- Agent Flow Diagram -->
+    <section class="agent-flow">
+        <div class="container">
+            <div class="flow-showcase">
+
+                <div class="flow-col inputs">
+                    <div class="flow-col-label">What comes in</div>
+                    <div class="flow-card">
+                        <div class="item-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
+                        <span>Specs</span>
+                    </div>
+                    <div class="flow-card">
+                        <div class="item-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                        </div>
+                        <span>Drawings</span>
+                    </div>
+                    <div class="flow-card">
+                        <div class="item-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+                        </div>
+                        <span>Emails</span>
+                    </div>
+                </div>
+
+                <div class="flow-link left" aria-hidden="true">
+                    <svg width="76" height="20" viewBox="0 0 76 20" fill="none">
+                        <line x1="4" y1="10" x2="62" y2="10" stroke="#c9b6ce" stroke-width="2" stroke-dasharray="5 5"/>
+                        <path d="M61 5 L70 10 L61 15" stroke="#805B87" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle r="3" fill="#805B87"><animateMotion dur="2.2s" repeatCount="indefinite" path="M4,10 L62,10"/></circle>
+                    </svg>
+                </div>
+
+                <div class="flow-center">
+                    <div class="flow-hub">
+                        <div class="flow-hub-ring r1"></div>
+                        <div class="flow-hub-ring r2"></div>
+                        <div class="flow-hub-ring r3"></div>
+                        <div class="flow-hub-core">
+                            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+                                <path d="M20 7
+                                    C 23 5.5, 27 6, 28.5 9
+                                    C 31 9, 33 11.5, 32 14.5
+                                    C 34.5 15.5, 35 19, 32.5 21
+                                    C 34 23.5, 32.5 27, 29.5 27.5
+                                    C 29.5 30, 26.5 32, 23.5 30.5
+                                    C 22 32, 19 32, 18 30
+                                    C 15 31.5, 12 29.5, 12.5 27
+                                    C 9.5 26.5, 8 23, 9.5 20.5
+                                    C 7 19, 7.5 15.5, 10.5 14
+                                    C 9.5 11, 12 8.5, 15 9
+                                    C 16 6, 18.5 5.5, 20 7 Z"
+                                    stroke="white" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+                                <path d="M20 7 C 19 12, 19.5 18, 20 22 C 20.3 25, 20 28, 19.5 30.8" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.5"/>
+                                <path d="M15.5 15.5 L 20.5 18.5 L 25.5 15" stroke="#d4955a" stroke-width="1" fill="none"/>
+                                <path d="M20.5 18.5 L 18 24" stroke="#d4955a" stroke-width="1" fill="none"/>
+                                <path d="M20.5 18.5 L 24 23.5" stroke="#d4955a" stroke-width="1" fill="none"/>
+                                <circle cx="15.5" cy="15.5" r="1.3" fill="#d4955a"/>
+                                <circle cx="25.5" cy="15" r="1.3" fill="#d4955a"/>
+                                <circle cx="20.5" cy="18.5" r="1.5" fill="#d4955a"/>
+                                <circle cx="18" cy="24" r="1.3" fill="#d4955a"/>
+                                <circle cx="24" cy="23.5" r="1.3" fill="#d4955a"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flow-hub-label">Bidblox Agent</div>
+                </div>
+
+                <div class="flow-link right" aria-hidden="true">
+                    <svg width="76" height="20" viewBox="0 0 76 20" fill="none">
+                        <line x1="4" y1="10" x2="62" y2="10" stroke="#e6c39b" stroke-width="2" stroke-dasharray="5 5"/>
+                        <path d="M61 5 L70 10 L61 15" stroke="#d4955a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle r="3" fill="#d4955a"><animateMotion dur="2.2s" repeatCount="indefinite" path="M4,10 L62,10"/></circle>
+                    </svg>
+                </div>
+
+                <div class="flow-col outputs">
+                    <div class="flow-col-label">What comes out</div>
+                    <div class="flow-card">
+                        <div class="item-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        </div>
+                        <span>Scopes</span>
+                    </div>
+                    <div class="flow-card">
+                        <div class="item-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <span>Pricing</span>
+                    </div>
+                    <div class="flow-card">
+                        <div class="item-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        </div>
+                        <span>Materials</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Graph Section -->
+    <section class="knowledge-graph">
+        <div class="container">
+            <div class="kg-layout">
+                <div class="kg-copy">
+                    <div class="section-eyebrow">Under the Hood</div>
+                    <h2>Every document feeds one connected knowledge graph</h2>
+                    <p>
+                        A spec section, a trade code, a price — on their own, just facts. Bidblox links them, so when it
+                        reads "08 71 00" it already knows the trade, what it cost on similar jobs, and which drawings
+                        reference it — enough to catch a mismatched code or a missing scope item instead of transcribing the page.
+                    </p>
+                    <ul>
+                        <li><span class="kg-check">✓</span> Trade codes stay consistent across specs, drawings, and bids</li>
+                        <li><span class="kg-check">✓</span> Sub bids are leveled against the same scope — gaps and outliers surface on their own</li>
+                        <li><span class="kg-check">✓</span> Pricing is benchmarked against what similar projects actually paid</li>
+                        <li><span class="kg-check">✓</span> Every node traces back to the document it came from</li>
+                    </ul>
+                </div>
+
+                <div class="kg-visual">
+                    <svg viewBox="0 0 560 360" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+                        <!-- edges: trade to the things we actually join -->
+                        <line x1="280" y1="180" x2="160" y2="82"  stroke="#d4c7d8" stroke-width="1.5"/>
+                        <line x1="280" y1="180" x2="400" y2="82"  stroke="#d4c7d8" stroke-width="1.5"/>
+                        <line x1="280" y1="180" x2="120" y2="200" stroke="#d4c7d8" stroke-width="1.5"/>
+                        <line x1="280" y1="180" x2="440" y2="200" stroke="#d4c7d8" stroke-width="1.5"/>
+                        <!-- secondary edge: spec informs expected scope -->
+                        <line x1="160" y1="82" x2="120" y2="200" stroke="#eceaee" stroke-width="1.5"/>
+                        <!-- accent edges: the flag emerges from trade + comparable bids -->
+                        <line x1="280" y1="208" x2="280" y2="300" stroke="#e6c39b" stroke-width="1.5"/>
+                        <line x1="440" y1="200" x2="300" y2="308" stroke="#e6c39b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+                        <!-- traveling dot: bids feeding the flag -->
+                        <circle r="3" fill="#d4955a">
+                            <animateMotion dur="3s" repeatCount="indefinite" path="M440,200 L300,308"/>
+                        </circle>
+                        <circle r="3" fill="#805B87">
+                            <animateMotion dur="3.4s" repeatCount="indefinite" begin="1.2s" path="M160,82 L280,180"/>
+                        </circle>
+
+                        <!-- source nodes -->
+                        <circle cx="160" cy="82" r="9" fill="white" stroke="#805B87" stroke-width="2"/>
+                        <text x="160" y="58" text-anchor="middle" class="kg-node-label">Spec Section</text>
+                        <text x="160" y="70" text-anchor="middle" class="kg-node-sublabel">08 71 00</text>
+
+                        <circle cx="400" cy="82" r="9" fill="white" stroke="#805B87" stroke-width="2"/>
+                        <text x="400" y="58" text-anchor="middle" class="kg-node-label">Drawing</text>
+                        <text x="400" y="70" text-anchor="middle" class="kg-node-sublabel">Sheet A-501</text>
+
+                        <circle cx="120" cy="200" r="9" fill="white" stroke="#805B87" stroke-width="2"/>
+                        <text x="106" y="197" text-anchor="end" class="kg-node-label">Expected scope</text>
+                        <text x="106" y="209" text-anchor="end" class="kg-node-sublabel">closers, exit devices</text>
+
+                        <circle cx="440" cy="200" r="9" fill="white" stroke="#805B87" stroke-width="2"/>
+                        <text x="454" y="197" text-anchor="start" class="kg-node-label">Comparable bids</text>
+                        <text x="454" y="209" text-anchor="start" class="kg-node-sublabel">3 subs · $38–52 / unit</text>
+
+                        <!-- central trade node -->
+                        <rect x="219" y="152" width="122" height="56" rx="14" fill="#805B87"/>
+                        <text x="280" y="177" text-anchor="middle" font-size="11" font-weight="700" fill="white">Door Hardware</text>
+                        <text x="280" y="193" text-anchor="middle" font-size="9.5" fill="#e4d6e8">Trade · Division 08</text>
+
+                        <!-- emergent flag: the payoff of cross-referencing -->
+                        <rect x="206" y="300" width="148" height="42" rx="12" fill="rgba(212,149,90,0.12)" stroke="#d4955a" stroke-width="1.3"/>
+                        <path d="M228 313 L235 326 H221 Z" fill="none" stroke="#d4955a" stroke-width="1.5" stroke-linejoin="round"/>
+                        <line x1="228" y1="317" x2="228" y2="321" stroke="#d4955a" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="228" cy="323.5" r="0.8" fill="#d4955a"/>
+                        <text x="294" y="317" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b9773a">One bid 32% below</text>
+                        <text x="294" y="330" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b9773a">comparables → review</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Understanding / Trust Section -->
+    <section class="understanding-section">
+        <div class="container">
+            <div class="understanding-intro">
+                <div class="section-eyebrow" style="text-align: center;">Why This Matters</div>
+                <h2>We'd rather build understanding than throw answers at you</h2>
+                <p>An estimator won't trust a number they can't trace back to a source — so neither does Bidblox. Every output is built to be checked, not just believed.</p>
+            </div>
+
+            <div class="reasoning-rail">
+
+                <div class="rail-step">
+                    <div class="rail-dot">1<span class="rail-connector"></span></div>
+                    <div class="rail-content">
+                        <div class="rail-text">
+                            <h3>Reads the source</h3>
+                            <p>Reads the real spec pages, drawings, and emails for this project — not a generic template of what a project like this "usually" looks like.</p>
+                        </div>
+                        <div class="rail-artifact">
+                            <svg width="200" height="104" viewBox="0 0 200 104" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="8" width="180" height="88" rx="8" fill="white" stroke="#e5e7eb"/>
+                                <rect x="24" y="24" width="120" height="7" rx="3.5" fill="#e5e7eb"/>
+                                <rect x="24" y="42" width="150" height="7" rx="3.5" fill="#d4955a"/>
+                                <rect x="24" y="60" width="95" height="7" rx="3.5" fill="#e5e7eb"/>
+                                <rect x="24" y="78" width="130" height="7" rx="3.5" fill="#e5e7eb"/>
+                                <circle r="5" fill="#d4955a" opacity="0.9">
+                                    <animateMotion dur="2.6s" repeatCount="indefinite" path="M24,45.5 L174,45.5"/>
+                                </circle>
+                                <g transform="translate(160,18)">
+                                    <circle cx="6" cy="6" r="6" fill="none" stroke="#805B87" stroke-width="1.8"/>
+                                    <line x1="10.5" y1="10.5" x2="15" y2="15" stroke="#805B87" stroke-width="1.8" stroke-linecap="round"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rail-step">
+                    <div class="rail-dot">2<span class="rail-connector"></span></div>
+                    <div class="rail-content">
+                        <div class="rail-text">
+                            <h3>Cross-references the graph</h3>
+                            <p>Trade codes, leveled bids, and scope all get checked against the graph — so a mismatched code, a scope gap, or a price that's out of line with comparable projects surfaces instead of quietly passing through.</p>
+                        </div>
+                        <div class="rail-artifact">
+                            <svg width="200" height="104" viewBox="0 0 200 104" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="100" y1="52" x2="40" y2="20" stroke="#d4c7d8" stroke-width="1.5"/>
+                                <line x1="100" y1="52" x2="164" y2="22" stroke="#d4c7d8" stroke-width="1.5"/>
+                                <line x1="100" y1="52" x2="38" y2="84" stroke="#d4c7d8" stroke-width="1.5"/>
+                                <line x1="100" y1="52" x2="162" y2="86" stroke="#d4c7d8" stroke-width="1.5"/>
+                                <circle cx="40" cy="20" r="7" fill="white" stroke="#805B87" stroke-width="1.8"/>
+                                <circle cx="164" cy="22" r="7" fill="white" stroke="#805B87" stroke-width="1.8"/>
+                                <circle cx="38" cy="84" r="7" fill="white" stroke="#805B87" stroke-width="1.8"/>
+                                <circle cx="162" cy="86" r="7" fill="white" stroke="#805B87" stroke-width="1.8"/>
+                                <circle cx="100" cy="52" r="16" fill="#805B87"/>
+                                <g transform="translate(90,42)">
+                                    <circle cx="10" cy="10" r="10" fill="#059669"/>
+                                    <path d="M6 10.2l2.6 2.6L14.4 7" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rail-step">
+                    <div class="rail-dot">3<span class="rail-connector"></span></div>
+                    <div class="rail-content">
+                        <div class="rail-text">
+                            <h3>Shows its work</h3>
+                            <p>Every scope, price, and material links back to the exact spec section or drawing it came from — verify a number in seconds, instead of re-reading the whole document.</p>
+                        </div>
+                        <div class="rail-artifact">
+                            <svg width="200" height="104" viewBox="0 0 200 104" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="34" width="76" height="36" rx="8" fill="white" stroke="#805B87" stroke-width="1.5"/>
+                                <text x="48" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="#805B87">$42/unit</text>
+                                <line x1="88" y1="52" x2="130" y2="52" stroke="#9d7ba5" stroke-width="1.5" stroke-dasharray="3 3"/>
+                                <path d="M124 47 L131 52 L124 57" fill="none" stroke="#9d7ba5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <rect x="132" y="26" width="58" height="52" rx="8" fill="#fafafa" stroke="#e5e7eb"/>
+                                <rect x="142" y="38" width="38" height="4" rx="2" fill="#d1d5db"/>
+                                <rect x="142" y="48" width="30" height="4" rx="2" fill="#d1d5db"/>
+                                <text x="161" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#6B7280">08 71 00</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rail-step">
+                    <div class="rail-dot">4</div>
+                    <div class="rail-content">
+                        <div class="rail-text">
+                            <h3>Flags what it's unsure of</h3>
+                            <p>When a document is ambiguous or contradicts itself, Bidblox says so — instead of guessing and presenting a confident-looking answer.</p>
+                        </div>
+                        <div class="rail-artifact">
+                            <svg width="200" height="104" viewBox="0 0 200 104" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="8" width="180" height="88" rx="8" fill="white" stroke="#e5e7eb"/>
+                                <rect x="24" y="26" width="140" height="7" rx="3.5" fill="#e5e7eb"/>
+                                <rect x="24" y="44" width="110" height="7" rx="3.5" fill="#e5e7eb"/>
+                                <line x1="24" y1="56" x2="134" y2="56" stroke="#d4955a" stroke-width="1.5" stroke-dasharray="2 2"/>
+                                <g transform="translate(24,66)">
+                                    <path d="M8 2 L15.5 15 H0.5 Z" fill="none" stroke="#d4955a" stroke-width="1.6" stroke-linejoin="round"/>
+                                    <line x1="8" y1="7" x2="8" y2="10.5" stroke="#d4955a" stroke-width="1.6" stroke-linecap="round"/>
+                                    <circle cx="8" cy="12.7" r="0.9" fill="#d4955a"/>
+                                </g>
+                                <rect x="45" y="68" width="86" height="16" rx="8" fill="rgba(212,149,90,0.12)"/>
+                                <text x="88" y="79.5" text-anchor="middle" font-size="9" font-weight="600" fill="#d4955a">Needs review</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>See the agent read a real project</h2>
+                <p>Bring a set of specs or drawings to the call and watch Bidblox turn them into scope in minutes</p>
+                <div class="hero-actions">
+                    <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary">Schedule Demo</a>
+                    <a href="mailto:lisa@bidblox.ai">Try It Free →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-mark">
+                            <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+                                <rect x="6" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="17" width="8" height="8" rx="2" fill="white"/>
+                                <rect x="16" y="7" width="8" height="8" rx="2" fill="white"/>
+                            </svg>
+                        </div>
+                        <span style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 17px;"><span style="color: var(--primary);">B</span>id<span style="color: var(--primary);">b</span>lox</span>
+                    </div>
+                    <p class="footer-description">
+                        Transforming the construction bidding process with AI-powered scope analysis and intelligent bid leveling. We assist businesses in responding to calls for tenders and requests for proposals (RFPs).
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/Bidblox/" target="_blank" rel="noopener" aria-label="Bidblox on Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.16 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.91h-2.33V22c4.78-.78 8.44-4.94 8.44-9.94z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/bidblox" target="_blank" rel="noopener" aria-label="Bidblox on Instagram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.02-3.58.07-4.85c.15-3.23 1.67-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.35.2-6.78 2.62-6.98 6.98C0 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.35 2.62 6.78 6.98 6.98C8.33 24 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/bidblox/" target="_blank" rel="noopener" aria-label="Bidblox on LinkedIn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <div class="footer-links">
+                        <a href="index.html#features">Features</a>
+                        <a href="index.html#integrations">Integrations</a>
+                        <a href="https://calendly.com/lisa-bidblox/30min">Request Demo</a>
+                        <a href="mailto:lisa@bidblox.ai">Free Trial</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <div class="footer-links">
+                        <!-- <a href="#faq">FAQ</a> -->
+                        <a href="trust.html">Trust Center</a>
+                        <a href="mailto:lisa@bidblox.ai">Contact Us</a>
+                        <a href="https://demo.bidblox.ai">Sign In</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">© <span id="copyright-year"></span> Bidblox. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="https://www.bidblox.ai/privacy">Privacy Policy</a>
+                    <a href="https://demo.bidblox.ai/terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        function sizeRailConnectors() {
+            const dots = Array.from(document.querySelectorAll('.rail-dot'));
+            dots.forEach((dot, i) => {
+                const connector = dot.querySelector('.rail-connector');
+                if (!connector) return;
+                const next = dots[i + 1];
+                if (!next) return;
+                const gap = next.getBoundingClientRect().top - dot.getBoundingClientRect().bottom;
+                connector.style.height = Math.max(gap, 0) + 'px';
+            });
+        }
+
+        if (document.querySelector('.reasoning-rail')) {
+            sizeRailConnectors();
+            window.addEventListener('resize', sizeRailConnectors);
+            window.addEventListener('load', sizeRailConnectors);
+        }
+
+        function toggleFaq(button) {
+            const item = button.closest('.faq-item');
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+            if (!wasOpen) {
+                item.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
