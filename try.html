@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Try Bidblox — Free Sample Scope of Work</title>
-    <meta name="description" content="Upload your project specs and drawings. We'll send you a complete, organized scope of work within 1–2 hours — free.">
+    <meta name="description" content="Upload your project specs and drawings. We'll send you a complete, organized scope of work within 1–2 business days — free.">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Crect width='30' height='30' rx='6' fill='%231a1a1a'/%3E%3Crect x='6' y='17' width='8' height='8' rx='2' fill='white'/%3E%3Crect x='16' y='17' width='8' height='8' rx='2' fill='white'/%3E%3Crect x='16' y='7' width='8' height='8' rx='2' fill='white'/%3E%3C/svg%3E">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -198,7 +198,6 @@
             color: var(--text-primary);
             background: white;
             transition: border-color 0.2s;
-            
             outline: none;
         }
         input:focus, select:focus, textarea:focus {
@@ -477,7 +476,7 @@
         <div class="pitch">
             <div class="pitch-eyebrow">Free Sample</div>
             <h1>See your scope of work — <span>before you commit.</span></h1>
-            <p>Upload your project specs and drawings. We'll send you a complete, organized scope of work within 1–2 hours. No demo required, no strings attached.</p>
+            <p>Upload your project specs and drawings. We'll send you a complete, organized scope of work within 1–2 business days. No demo required, no strings attached.</p>
 
             <div class="pitch-items">
                 <div class="pitch-item">
@@ -519,7 +518,7 @@
             </div>
 
             <div class="pitch-note">
-                <strong>One free sample per company.</strong> We review every submission personally before sending results. Expect a reply within 1–2 hours.
+                <strong>One free sample per company.</strong> We review every submission personally before sending results. Expect a reply within 1–2 business days.
             </div>
         </div>
 
@@ -563,7 +562,7 @@
                     <div class="form-group">
                         <label>Project files</label>
                         <div class="drop-zone" id="drop-zone">
-                            <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx">
+                            <input type="file" id="file-input" multiple accept=".pdf,.doc,.docx,.dwg,.dxf,.png,.jpg,.jpeg,.tif,.tiff,.zip">
                             <div class="drop-icon">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -572,7 +571,7 @@
                                 </svg>
                             </div>
                             <div class="drop-zone-label">Drop files here or click to browse</div>
-                            <div class="drop-zone-sub">Up to 5 files · 100 MB each · PDF or Word</div>
+                            <div class="drop-zone-sub">Up to 5 files · 100 MB each · PDF, Word, drawings (DWG/DXF/image) or ZIP</div>
                         </div>
                         <div class="file-list" id="file-list"></div>
                     </div>
@@ -601,7 +600,7 @@
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
                     <h3>Files received.</h3>
-                    <p>We've got your project files and will have a full scope of work ready within <strong>1–2 hours</strong>. Check your inbox — we'll email the results directly.</p>
+                    <p>We've got your project files and will have a full scope of work ready within <strong>1–2 business days</strong>. Check your inbox — we'll email the results directly.</p>
                     <a href="https://calendly.com/lisa-bidblox/30min" class="btn-primary" style="display:inline-block">Schedule a call in the meantime →</a>
                 </div>
             </div>
@@ -636,7 +635,7 @@
         </a>
         <div class="footer-links">
             <a href="/privacy">Privacy Policy</a>
-            <a href="https://demo.bidblox.ai/terms">Terms of Service</a>
+            <a href="/terms">Terms of Service</a>
             <a href="mailto:lisa@bidblox.ai">Contact</a>
         </div>
         <div style="font-size:13px;color:#6b7280">© <span id="yr"></span> Bidblox</div>
@@ -669,7 +668,16 @@
 
     const MAX_FILES = 5;
     const MAX_SIZE_MB = 100;
+    const ALLOWED_EXTENSIONS = new Set([
+        'pdf', 'doc', 'docx', 'dwg', 'dxf',
+        'png', 'jpg', 'jpeg', 'tif', 'tiff', 'zip'
+    ]);
     let selectedFiles = [];
+
+    function extensionOf(filename) {
+        const m = /\.([a-z0-9]+)$/i.exec((filename || '').trim());
+        return m ? m[1].toLowerCase() : '';
+    }
 
     function formatSize(bytes) {
         if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
@@ -723,6 +731,10 @@
                 showError(`"${file.name}" exceeds the 100 MB limit.`);
                 continue;
             }
+            if (!ALLOWED_EXTENSIONS.has(extensionOf(file.name))) {
+                showError(`"${file.name}" isn't a supported format. Accepted: PDF, Word, DWG, DXF, images, or ZIP.`);
+                continue;
+            }
             if (selectedFiles.find(f => f.name === file.name && f.size === file.size)) continue;
             selectedFiles.push(file);
         }
@@ -742,6 +754,26 @@
     function showState(id) {
         document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
+    }
+
+    // PUT a single file straight to its GCS signed URL, reporting bytes
+    // uploaded so we can show real progress. Uploads go browser → GCS, so
+    // they never hit Cloud Run's ~32 MiB request cap.
+    function uploadToSignedUrl(file, url, onProgress) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT', url, true);
+            xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
+            xhr.upload.addEventListener('progress', e => {
+                if (e.lengthComputable) onProgress(e.loaded);
+            });
+            xhr.onload = () => {
+                if (xhr.status >= 200 && xhr.status < 300) resolve();
+                else reject(new Error(`Upload failed for "${file.name}" (HTTP ${xhr.status}).`));
+            };
+            xhr.onerror = () => reject(new Error(`Network error uploading "${file.name}". Please try again.`));
+            xhr.send(file);
+        });
     }
 
     form.addEventListener('submit', async (e) => {
@@ -773,49 +805,73 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Uploading…';
         progressWrap.style.display = 'block';
+        progressBar.style.width = '0%';
 
-        // Animate progress during upload
-        let fakeProgress = 0;
-        const ticker = setInterval(() => {
-            fakeProgress = Math.min(fakeProgress + Math.random() * 8, 85);
-            progressBar.style.width = fakeProgress + '%';
-        }, 400);
+        const meta = {
+            name, email, company,
+            projectType: document.getElementById('projectType').value,
+            notes: document.getElementById('notes').value.trim()
+        };
 
         try {
-            const fd = new FormData();
-            fd.append('name', name);
-            fd.append('email', email);
-            fd.append('company', company);
-            fd.append('projectType', document.getElementById('projectType').value);
-            fd.append('notes', document.getElementById('notes').value.trim());
-            selectedFiles.forEach(f => fd.append('files', f));
-
-            const res = await fetch(`${API_BASE_URL}/api/demo/submit`, {
+            // 1) Ask the backend for a signed upload URL per file.
+            const initRes = await fetch(`${API_BASE_URL}/api/demo/initiate`, {
                 method: 'POST',
-                body: fd
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...meta,
+                    files: selectedFiles.map(f => ({ name: f.name, size: f.size, type: f.type }))
+                })
             });
-
-            clearInterval(ticker);
-            progressBar.style.width = '100%';
-
-            const data = await res.json();
-
-            if (res.status === 409 && data.error === 'already_submitted') {
+            const initData = await initRes.json();
+            if (initRes.status === 409 && initData.error === 'already_submitted') {
                 showState('state-already');
-
-
-                
                 return;
             }
-
-            if (!res.ok) {
-                throw new Error(data.error || 'Something went wrong. Please try again.');
+            if (!initRes.ok) {
+                throw new Error(initData.error || 'Something went wrong. Please try again.');
             }
 
+            // 2) Upload every file directly to GCS, tracking aggregate progress.
+            const totalBytes = selectedFiles.reduce((s, f) => s + f.size, 0) || 1;
+            const loadedPerFile = new Array(selectedFiles.length).fill(0);
+            const urlByName = {};
+            initData.uploads.forEach(u => { urlByName[u.name] = u.signedUrl; });
+
+            await Promise.all(selectedFiles.map((file, i) => {
+                const url = urlByName[file.name];
+                if (!url) throw new Error(`No upload URL returned for "${file.name}".`);
+                return uploadToSignedUrl(file, url, loaded => {
+                    loadedPerFile[i] = loaded;
+                    const sum = loadedPerFile.reduce((a, b) => a + b, 0);
+                    progressBar.style.width = Math.min(95, Math.round((sum / totalBytes) * 95)) + '%';
+                });
+            }));
+
+            // 3) Tell the backend the uploads finished so it can record them.
+            submitBtn.textContent = 'Finishing…';
+            const finRes = await fetch(`${API_BASE_URL}/api/demo/finalize`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    submissionId: initData.submissionId,
+                    ...meta,
+                    files: selectedFiles.map(f => ({ name: f.name, size: f.size }))
+                })
+            });
+            const finData = await finRes.json();
+            if (finRes.status === 409 && finData.error === 'already_submitted') {
+                showState('state-already');
+                return;
+            }
+            if (!finRes.ok) {
+                throw new Error(finData.error || 'Something went wrong. Please try again.');
+            }
+
+            progressBar.style.width = '100%';
             showState('state-success');
 
         } catch (err) {
-            clearInterval(ticker);
             progressWrap.style.display = 'none';
             progressBar.style.width = '0%';
             submitBtn.disabled = false;
